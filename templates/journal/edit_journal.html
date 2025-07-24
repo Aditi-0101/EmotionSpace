@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% block body %}
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@600;700;800&display=swap" rel="stylesheet">
+<style>
+  body {
+    margin: 0;
+    font-family: 'Nunito', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    display: flex;
+    height: 100vh;
+    overflow: auto;
+  }
+
+  .page-container {
+    display: flex;
+    flex-direction: row;
+    width: 1100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    gap: 30px;
+  }
+
+  .sidebar {
+    width: 220px;
+    flex-shrink: 0;
+    margin-left: -20px;
+    background: transparent;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+    padding: 20px 10px;
+  }
+
+  .sidebar h2 {
+    font-size: 32px;
+    font-weight: 900;
+    margin-bottom: 40px;
+    color: #fff;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    letter-spacing: 1px;
+    position: relative;
+  }
+
+  .sidebar h2::after {
+    content: '📔';
+    position: absolute;
+    top: -8px;
+    right: -30px;
+    font-size: 24px;
+  }
+
+  .sidebar a {
+    background: white;
+    color: #4a2c5b;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 14px;
+    font-weight: bold;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: -5px;
+    text-decoration: none;
+  }
+
+  .sidebar a:hover {
+    background-color: #fdf2f2;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+  }
+
+  .sidebar::before {
+    content: "";
+    position: absolute;
+    right: -1px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, #fff5f5, #ffbaba);
+    z-index: 0;
+  }
+
+
+  .journal-sheet {
+    background: linear-gradient(white, #fdfbf9), url('https://www.transparenttextures.com/patterns/paper-fibers.png');
+    background-size: cover;
+    border-radius: 12px;
+    border: 11px solid #2e2e2e;
+    margin: 30px auto;
+    padding: 50px 80px;
+    width: 80%;
+    max-width: 900px;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    line-height: 1.5;
+  }
+
+  .red-line1,
+  .red-line2 {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background-color: #f49494;
+  }
+
+  .red-line1 {
+    left: 60px;
+  }
+
+  .red-line2 {
+    left: 65px;
+  }
+
+  .journal-form {
+    display: flex;
+    flex-direction: column;
+    margin-left: 90px;
+  }
+
+  .journal-form label {
+    font-weight: 600;
+    margin-top: 20px;
+    color: #333;
+    font-size: 18px;
+  }
+
+  .journal-form input[type="date"],
+  .journal-form input[type="text"],
+  .journal-form textarea {
+    width: 100%;
+    padding: 14px 20px;
+    margin-top: 6px;
+    border: 1.5px solid #bbb;
+    border-radius: 10px;
+    background: #fffdfb;
+    font-size: 16px;
+    font-family: 'Georgia', serif;
+    box-shadow: inset 1px 1px 2px #eee;
+  }
+
+  .journal-form textarea {
+    min-height: 280px;
+    line-height: 1.6;
+    background-image: repeating-linear-gradient(to bottom,
+        #fffdfb,
+        #fffdfb 28px,
+        #d6d6d6 29px);
+    background-size: 100% 30px;
+  }
+
+  .journal-form button {
+    margin-top: 6px;
+    padding: 13px;
+    background-color: #4a2c5b;
+    color: white;
+    font-weight: bold;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: 0.3s ease;
+  }
+
+  .journal-form button:hover {
+    background-color: #613775;
+  }
+
+  .floating-element {
+    position: absolute;
+    pointer-events: none;
+    z-index: 5;
+  }
+
+  .floating-emoji {
+    font-size: clamp(40px, 6vw, 80px);
+    animation: float 6s ease-in-out infinite;
+  }
+
+
+  /* Positioning floating elements */
+  .floating-element:nth-child(1) {
+    top: 30%;
+    left: 19%;
+    animation-delay: -1s;
+  }
+
+  .floating-element:nth-child(2) {
+    bottom: 78%;
+    left: 22%;
+    animation-delay: -2s;
+  }
+
+  .floating-element:nth-child(3) {
+    bottom: 5%;
+    left: 19%;
+    animation-delay: -2s;
+  }
+
+  .floating-element:nth-child(5) {
+    top: 55%;
+    left: 22%;
+    animation-delay: -0.5s;
+  }
+
+  .floating-element:nth-child(6) {
+    top: 27%;
+    right: 5%;
+    animation-delay: -2.5s;
+  }
+
+
+  @keyframes float {
+
+    0%,
+    100% {
+      transform: translateY(0px) rotate(0deg);
+    }
+
+    25% {
+      transform: translateY(-20px) rotate(5deg);
+    }
+
+    50% {
+      transform: translateY(-10px) rotate(-3deg);
+    }
+
+    75% {
+      transform: translateY(-15px) rotate(3deg);
+    }
+  }
+
+  .mood-tracker {
+    margin: 60px 0;
+    text-align: center;
+  }
+
+  .mood-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 50px);
+    justify-content: center;
+    gap: 12px;
+  }
+
+  .mood {
+    font-size: 24px;
+    padding: 8px;
+    width: 50px;
+    height: 50px;
+    background: #fff;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .mood:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.1);
+  }
+
+  .mood.selected {
+    background-color: #a7d7ff;
+    border-color: #0077cc;
+  }
+</style>
+<div class="page-container">
+  <aside class="sidebar">
+    <h2>Journal</h2>
+    <a href="{% url 'read_journals' %}">📖 Read Journals</a>
+
+    <div class="mood-tracker">
+      <h3>Select Your Mood:</h3>
+      <div class="mood-grid">
+        <button class="mood">😊</button>
+        <button class="mood">😐</button>
+        <button class="mood">😔</button>
+        <button class="mood">😡</button>
+        <button class="mood">😨</button>
+        <button class="mood">😴</button>
+        <button class="mood">🥳</button>
+        <button class="mood">🤯</button>
+        <button class="mood">💖</button>
+        <button class="mood">😌</button>
+      </div>
+    </div>
+  </aside>
+
+  <main class="journal-sheet">
+    <div class="red-line1"></div>
+    <div class="red-line2"></div>
+
+    <form class="journal-form" method="POST">
+      {% if selected_entry %}
+      {% csrf_token %}
+      <label for="topic">Topic</label>
+      <input type="text" id="topic" name="topic" value="{{selected_entry.topic}}" required>
+      <label for="entry">Entry</label>
+      <textarea id="entry" name="entry" rows="12" required>{{selected_entry.entry}}</textarea>
+      <button type="submit">➕ Edit Entry</button>
+      {% endif %}
+    </form>
+  </main>
+</div>
+</body>
+
+</html>
+{% endblock %}

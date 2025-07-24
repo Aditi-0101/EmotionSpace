@@ -1,0 +1,369 @@
+{% extends 'base.html' %}
+{% block body %}
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <style>
+    /* EmotionSpace Theme Variables */
+    :root {
+  --primary-mint: #59b6e8ff;
+  --primary-lavender: #764ba2;
+  --primary-peach: #67a7c0ff;
+  --primary-yellow: #a1bfe0ff;
+  --primary-blue: #1b2026ff;
+
+
+  --text-primary: #2e2e2e;
+  --text-secondary: #5a5a5a;
+
+  --bg-primary: #fff1f4;
+  --bg-secondary: #ffe9dc;
+  --bg-card: #ffffff;
+
+  --border-color: #ffc0cb;
+
+  --shadow-light: 0 4px 20px rgba(255, 138, 184, 0.1);
+  --shadow-hover: 0 8px 30px rgba(255, 138, 184, 0.2);
+
+  --glass-bg: rgba(255, 255, 255, 0.4);
+  --accent-primary: #ff5c9a;
+  --glow-purple: #ff8ab8;
+  --border-glass: #ffb6c1;
+  --secondary-bg: #fff9f9;
+  --card-shadow: rgba(255, 182, 193, 0.2);
+    }
+
+
+
+    /* Reset */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: var(--text-primary);
+      transition: all 0.3s ease;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    /* Add background pattern like index.html */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><circle cx="200" cy="200" r="100" fill="rgba(245,235,255,0.8)"/><circle cx="800" cy="300" r="150" fill="rgba(220,245,255,0.8)"/><circle cx="300" cy="700" r="80" fill="rgba(255,240,220,0.8)"/><circle cx="700" cy="800" r="120" fill="rgba(220,255,235,0.8)"/></svg>')
+        no-repeat center center/cover;
+      opacity: 1;
+      z-index: -1;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding-top: 80px;
+      padding-bottom: 80px;
+    }
+
+    /* Login/Register Container - Updated to match theme */
+    .login-container {
+      background-color: var(--bg-card);
+      border-radius: 20px;
+      box-shadow: var(--shadow-hover);
+      position: relative;
+      overflow: hidden;
+      width: 768px;
+      max-width: 90%;
+      min-height: 480px;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Forms */
+    .form-container {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      transition: all 0.6s ease-in-out;
+    }
+
+    .sign-in-container {
+      left: 0;
+      width: 50%;
+      z-index: 2;
+    }
+
+    .sign-up-container {
+      left: 0;
+      width: 50%;
+      opacity: 0;
+      z-index: 1;
+    }
+
+    /* Toggle active class */
+    .login-container.right-panel-active .sign-in-container {
+      transform: translateX(100%);
+    }
+
+    .login-container.right-panel-active .sign-up-container {
+      transform: translateX(100%);
+      opacity: 1;
+      z-index: 5;
+    }
+
+    /* Forms */
+    form {
+      background-color: var(--bg-card);
+      display: flex;
+      flex-direction: column;
+      padding: 0 50px;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    form h1 {
+      color: var(--text-primary);
+      font-weight: 600;
+      margin-bottom: 2rem;
+      font-size: 2rem;
+    }
+
+    input {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      padding: 12px 15px;
+      margin: 8px 0;
+      width: 100%;
+      border-radius: 10px;
+      color: var(--text-primary);
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    input:focus {
+      outline: none;
+      border-color: var(--primary-lavender);
+      box-shadow: 0 0 0 3px rgba(179, 157, 219, 0.1);
+    }
+
+    input::placeholder {
+      color: var(--text-secondary);
+    }
+
+    button {
+      border: none;
+      padding: 12px 45px;
+      background: var(--primary-lavender);
+      color: white;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      font-weight: 600;
+      box-shadow: var(--shadow-light);
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    button.ghost {
+      background-color: transparent;
+      border: 2px solid white;
+      color: white;
+    }
+
+    button.ghost:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Overlay */
+    .overlay-container {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      width: 50%;
+      height: 100%;
+      overflow: hidden;
+      transition: transform 0.6s ease-in-out;
+      z-index: 100;
+    }
+
+    .login-container.right-panel-active .overlay-container {
+      transform: translateX(-100%);
+    }
+
+    .overlay {
+      background: linear-gradient(135deg, var(--primary-lavender) 0%, var(--primary-mint) 100%);
+      color: white;
+      position: relative;
+      left: -100%;
+      height: 100%;
+      width: 200%;
+      transform: translateX(0);
+      transition: transform 0.6s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-container.right-panel-active .overlay {
+      transform: translateX(50%);
+    }
+
+    .overlay-panel {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 40px;
+      height: 100%;
+      width: 50%;
+      transition: transform 0.6s ease-in-out;
+    }
+
+    .overlay-panel h1 {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .overlay-panel p {
+      font-size: 1rem;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+    }
+
+    .overlay-left {
+      transform: translateX(-20%);
+      left: 0;
+    }
+
+    .login-container.right-panel-active .overlay-left {
+      transform: translateX(0);
+    }
+
+    .overlay-right {
+      right: 0;
+      transform: translateX(0);
+    }
+
+    .login-container.right-panel-active .overlay-right {
+      transform: translateX(20%);
+    }
+
+    @media (max-width: 768px) {
+      .login-container {
+        width: 100%;
+        min-height: 400px;
+      }
+      
+      form {
+        padding: 0 30px;
+      }
+      
+      .overlay-panel {
+        padding: 0 20px;
+      }
+      
+      .main-content {
+        padding: 100px 20px 20px;
+      }
+    }
+  </style>
+
+  
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <div class="login-container" id="container">
+      <!-- Sign Up Form -->
+      <div class="form-container sign-up-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="register" >
+          <h1>Create Account</h1>
+          <input type="text" name="username" placeholder="Username" required/>
+          <input type="text" name="first_name" placeholder="First Name" required/>
+          <input type="text" name="last_name" placeholder="Last Name" />
+          <input type="email" name="email" placeholder="Email" required/>
+          <input type="password" name="password" placeholder="Password" required/>
+          <button>Register</button>
+        </form>
+      </div>
+
+      <!-- Sign In Form -->
+      <div class="form-container sign-in-container">
+        <form method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="login" >
+          <h1>Login</h1>
+          <input type="text" name="username" placeholder="Username" required/>
+          <input type="password" name="password" placeholder="Password" required/>
+          <button>Login</button>
+        </form>
+      </div>
+
+      <!-- Overlay -->
+      <div class="overlay-container">
+        <div class="overlay">
+          <div class="overlay-panel overlay-left">
+            <h1>Welcome back!</h1>
+            <p>Click below to login to your account!</p>
+            <button class="ghost" id="signIn">Login</button>
+          </div>
+          <div class="overlay-panel overlay-right">
+            <h1>New here?</h1>
+            <p>Click below to register and join us!</p>
+            <button class="ghost" id="signUp">Register</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Login/Register functionality
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+      container.classList.add("right-panel-active");
+    });
+
+    signInButton.addEventListener('click', () => {
+      container.classList.remove("right-panel-active");
+    });
+
+
+    // Hamburger menu toggle
+    function toggleMenu() {
+      document.getElementById("navLinks").classList.toggle("active");
+    }
+  </script>
+
+
+{% endblock %}

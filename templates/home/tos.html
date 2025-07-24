@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terms and Conditions - EmotionSpace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6b73ff;
+            --secondary-color: #7c3aed;
+            --accent-color: #06d6a0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-light: #9ca3af;
+
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --card-bg: #ffffff;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --border-dark: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            font-size: 14px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 16px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--border-light);
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 86px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 245, 239, 0.9);
+        }
+
+        .nav-container {
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 86px;
+            padding: 0 60px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links li {
+            height: 100%;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--bg-secondary);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 40vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-position: 0 0;
+            background-size: 120px 120px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .hero h1 {
+            font-size: clamp(36px, 6vw, 56px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            color: #ffffff;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .hero p {
+            font-size: clamp(16px, 2vw, 20px);
+            color: rgba(255, 255, 255, 0.95);
+            margin-bottom: 32px;
+            font-weight: 500;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .last-updated {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px 24px;
+            color: white;
+            font-size: 14px;
+            display: inline-block;
+            margin-top: 16px;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 48px 16px;
+        }
+
+        .terms-section {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            padding: 32px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 12px rgba(107, 115, 255, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terms-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: var(--text-primary);
+        }
+
+        .section-content h3 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--secondary-color);
+            margin: 20px 0 12px 0;
+        }
+
+        .section-content p {
+            margin-bottom: 16px;
+        }
+
+        .section-content ul,
+        .section-content ol {
+            padding-left: 24px;
+            margin-bottom: 16px;
+        }
+
+        .section-content li {
+            margin-bottom: 8px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(107, 115, 255, 0.05) 0%, rgba(124, 58, 237, 0.03) 100%);
+            border: 2px solid rgba(107, 115, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .warning-box {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.05) 0%, rgba(239, 68, 68, 0.03) 100%);
+            border: 2px solid rgba(245, 158, 11, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, rgba(6, 214, 160, 0.05) 0%, rgba(16, 185, 129, 0.03) 100%);
+            border: 2px solid rgba(6, 214, 160, 0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+            margin: 32px 0;
+        }
+
+        .contact-info h3 {
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-color);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-bottom: 32px;
+        }
+
+        .back-button:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(107, 115, 255, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: black;
+            border-top: 1px solid var(--border-light);
+            padding: 32px 0;
+            margin-top: 48px;
+            color: white;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom p {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-content {
+                padding: 32px 16px;
+            }
+
+            .terms-section {
+                padding: 24px 20px;
+            }
+
+            .hero {
+                padding: 100px 0 60px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                {% if user.is_authenticated %}
+                <a href="{% url 'home' %}" class="logo">💭 EmotionSpace</a>
+                {% else %}
+                <a href="{% url 'main' %}" class="logo">💭 EmotionSpace</a>
+                {% endif %}
+                <ul class="nav-links" id="navLinks">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">🏠 Home</a></li>
+                    <li><a href="{% url 'about' %}">ℹ️ About</a></li>
+                    <li><a href="{% url 'dashboard' %}">📊 Dashboard</a></li>
+                    <li><a href="{% url 'logout' %}">🚪 Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'main' %}"> Home</a></li>
+                    <li><a href="{% url 'about' %}"> About</a></li>
+                    <li><a href="{% url 'join' %}"> Join</a></li>
+                    {% endif %}
+                </ul>
+
+                {% if user.is_authenticated %}
+                <div class="nav-right">
+                    <a href="#profile" class="profile-link">
+                        <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img" />
+                    </a>
+                    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Terms & Conditions</h1>
+                <p>Understanding our community guidelines and your rights</p>
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i> Last updated: January 15, 2025
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        {% if user.is_authenticated %}
+        <a href="{% url 'home' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        {% else %}
+        <a href="{% url 'home' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        {% endif %}
+
+        <!-- Acceptance of Terms -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-handshake"></i>
+                1. Acceptance of Terms
+            </h2>
+            <div class="section-content">
+                <p>By accessing and using EmotionSpace ("the Platform"), you accept and agree to be bound by the terms
+                    and provision of this agreement. If you do not agree to abide by the above, please do not use this
+                    service.</p>
+
+                <div class="highlight-box">
+                    <strong>Important:</strong> These terms may be updated from time to time. Continued use of the
+                    platform constitutes acceptance of any changes.
+                </div>
+            </div>
+        </div>
+
+        <!-- Service Description -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-heart"></i>
+                2. Service Description
+            </h2>
+            <div class="section-content">
+                <p>EmotionSpace is a mental wellness platform that provides:</p>
+                <ul>
+                    <li>Anonymous confession and journaling capabilities</li>
+                    <li>Community support and interaction features</li>
+                    <li>AI-powered emotional support tools</li>
+                    <li>Mental health resources and guidance</li>
+                </ul>
+
+                <h3>Our Mission</h3>
+                <p>We aim to create a safe, supportive environment where users can express their emotions freely without
+                    judgment, fostering mental wellness and community support.</p>
+            </div>
+        </div>
+
+        <!-- User Responsibilities -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-user-shield"></i>
+                3. User Responsibilities
+            </h2>
+            <div class="section-content">
+                <h3>Account Security</h3>
+                <ul>
+                    <li>You are responsible for maintaining the confidentiality of your account credentials</li>
+                    <li>You must notify us immediately of any unauthorized use of your account</li>
+                    <li>You are responsible for all activities that occur under your account</li>
+                </ul>
+
+                <h3>Content Standards</h3>
+                <p>When using our platform, you agree to:</p>
+                <ul>
+                    <li>Share content that is honest and authentic</li>
+                    <li>Respect other users' privacy and anonymity</li>
+                    <li>Provide supportive and constructive feedback</li>
+                    <li>Report any content that violates our community guidelines</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Prohibited Content -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-ban"></i>
+                4. Prohibited Content & Behavior
+            </h2>
+            <div class="section-content">
+                <div class="warning-box">
+                    <strong>Zero Tolerance Policy:</strong> The following behaviors will result in immediate account
+                    suspension or termination.
+                </div>
+
+                <h3>Strictly Prohibited:</h3>
+                <ul>
+                    <li><strong>Harassment or Bullying:</strong> Any form of intimidation, threats, or targeted
+                        harassment</li>
+                    <li><strong>Harmful Content:</strong> Content promoting self-harm, suicide, or dangerous behaviors
+                    </li>
+                    <li><strong>Hate Speech:</strong> Content that promotes discrimination based on race, religion,
+                        gender, sexuality, or other protected characteristics</li>
+                    <li><strong>Illegal Activities:</strong> Content related to illegal substances, activities, or
+                        behaviors</li>
+                    <li><strong>Spam or Scams:</strong> Repetitive content, promotional material, or fraudulent schemes
+                    </li>
+                    <li><strong>Privacy Violations:</strong> Sharing personal information of others without consent</li>
+                    <li><strong>Impersonation:</strong> Pretending to be someone else or creating fake accounts</li>
+                </ul>
+
+                <h3>Community Impact</h3>
+                <p>We reserve the right to remove content and suspend accounts that violate these guidelines, as our
+                    primary concern is maintaining a safe environment for all users.</p>
+            </div>
+        </div>
+
+        <!-- Privacy & Data Protection -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-lock"></i>
+                5. Privacy & Data Protection
+            </h2>
+            <div class="section-content">
+                <h3>Data Collection</h3>
+                <p>We collect only the information necessary to provide our services:</p>
+                <ul>
+                    <li>Account information (email, username, encrypted password)</li>
+                    <li>Content you choose to share (confessions, comments)</li>
+                    <li>Usage analytics to improve our platform</li>
+                    <li>Technical data for security and performance</li>
+                </ul>
+
+                <h3>Anonymity Protection</h3>
+                <p>We are committed to protecting your anonymity:</p>
+                <ul>
+                    <li>Confessions are posted anonymously by default</li>
+                    <li>We do not link anonymous content to user accounts publicly</li>
+                    <li>Personal data is encrypted and stored securely</li>
+                    <li>We never sell or share personal data with third parties</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <strong>Your Rights:</strong> You have the right to access, modify, or delete your personal data at
+                    any time. Contact us for data-related requests.
+                </div>
+            </div>
+        </div>
+
+        <!-- Intellectual Property -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-copyright"></i>
+                6. Intellectual Property
+            </h2>
+            <div class="section-content">
+                <h3>Your Content</h3>
+                <p>You retain ownership of the content you create on EmotionSpace. However, by posting content, you
+                    grant us a non-exclusive license to:</p>
+                <ul>
+                    <li>Display and distribute your content on the platform</li>
+                    <li>Use your content for platform improvement and research (in anonymized form)</li>
+                    <li>Allow other users to interact with your content through our features</li>
+                </ul>
+
+                <h3>Our Content</h3>
+                <p>The EmotionSpace platform, including its design, features, and technology, is protected by
+                    intellectual property laws. Users may not:</p>
+                <ul>
+                    <li>Copy or reproduce platform elements for commercial use</li>
+                    <li>Reverse engineer or attempt to extract source code</li>
+                    <li>Use our branding or trademarks without permission</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Disclaimers -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-exclamation-triangle"></i>
+                7. Important Disclaimers
+            </h2>
+            <div class="section-content">
+                <div class="warning-box">
+                    <strong>Medical Disclaimer:</strong> EmotionSpace is not a substitute for professional medical or
+                    psychological treatment.
+                </div>
+
+                <h3>Mental Health Resources</h3>
+                <p>While we provide emotional support tools and community connection:</p>
+                <ul>
+                    <li>We are not licensed mental health professionals</li>
+                    <li>Our AI tools are for support only, not medical diagnosis</li>
+                    <li>In crisis situations, please contact emergency services or crisis hotlines</li>
+                    <li>We strongly encourage users to seek professional help when needed</li>
+                </ul>
+
+                <h3>Platform Availability</h3>
+                <p>We strive for 99% uptime but cannot guarantee uninterrupted service. We are not liable for:</p>
+                <ul>
+                    <li>Temporary service outages or maintenance periods</li>
+                    <li>Data loss due to technical issues (though we maintain backups)</li>
+                    <li>Third-party service dependencies</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Limitation of Liability -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-scale-balanced"></i>
+                8. Limitation of Liability
+            </h2>
+            <div class="section-content">
+                <p>EmotionSpace and its operators shall not be liable for:</p>
+                <ul>
+                    <li>Direct, indirect, incidental, or consequential damages</li>
+                    <li>Loss of data, profits, or business opportunities</li>
+                    <li>Damages arising from user-generated content</li>
+                    <li>Technical issues or service interruptions</li>
+                    <li>Actions taken based on platform content or advice</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <strong>Maximum Liability:</strong> Our total liability shall not exceed the amount paid by the user
+                    for our services in the 12 months preceding the incident.
+                </div>
+            </div>
+        </div>
+
+        <!-- Termination -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-door-open"></i>
+                9. Account Termination
+            </h2>
+            <div class="section-content">
+                <h3>Voluntary Termination</h3>
+                <p>You may delete your account at any time through your account settings. Upon deletion:</p>
+                <ul>
+                    <li>Your personal information will be permanently removed</li>
+                    <li>Anonymous content may remain on the platform for community benefit</li>
+                    <li>You will lose access to all platform features</li>
+                </ul>
+
+                <h3>Involuntary Termination</h3>
+                <p>We may suspend or terminate accounts for:</p>
+                <ul>
+                    <li>Violations of these terms of service</li>
+                    <li>Harmful behavior toward other users</li>
+                    <li>Illegal activities or content</li>
+                    <li>Attempts to compromise platform security</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Governing Law -->
+        <div class="terms-section">
+            <h2 class="section-title">
+                <i class="fas fa-gavel"></i>
+                10. Governing Law & Dispute Resolution
+            </h2>
+            <div class="section-content">
+                <p>These terms are governed by the laws of [Your Jurisdiction]. Any disputes will be resolved through:
+                </p>
+                <ol>
+                    <li><strong>Direct Communication:</strong> We encourage users to contact us first to resolve issues
+                    </li>
+                    <li><strong>Mediation:</strong> If direct resolution fails, we prefer mediation</li>
+                    <li><strong>Binding Arbitration:</strong> As a last resort, disputes will be resolved through
+                        arbitration</li>
+                </ol>
+
+                <h3>Class Action Waiver</h3>
+                <p>By using our platform, you agree to resolve disputes individually and waive the right to participate
+                    in class action lawsuits.</p>
+            </div>
+        </div>
+
+        <!-- Contact Information -->
+        <div class="contact-info">
+            <h3><i class="fas fa-envelope"></i> Questions About These Terms?</h3>
+            <p>If you have any questions about these terms and conditions, please contact us:</p>
+            <p><strong>Email:</strong> legal@emotionspace.com</p>
+            <p><strong>Response Time:</strong> We aim to respond within 48 hours</p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'tos' %}">Terms of Service</a>
+                    <a href="{% url 'privacy' %}">Privacy Policy</a>
+                    <a href="{% url 'cg' %}">Community Guidelines</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 EmotionSpace. Created with care for your mental wellness journey.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

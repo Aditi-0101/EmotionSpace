@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community Guidelines - EmotionSpace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6b73ff;
+            --secondary-color: #7c3aed;
+            --accent-color: #06d6a0;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+
+            --text-primary: #1f2937;
+            --text-secondary: #4b5563;
+            --text-light: #9ca3af;
+
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #f1f5f9;
+            --card-bg: #ffffff;
+
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --border-dark: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: var(--text-primary);
+            background: var(--bg-primary);
+            font-size: 16px;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            background-position: 0 0;
+            background-size: 120px 120px;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0px);
+            }
+
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 10;
+        }
+
+        .back-btn {
+            position: absolute;
+            top: 40px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            text-decoration: none;
+            padding: 12px 20px;
+            border-radius: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .back-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateX(-5px);
+        }
+
+        .header h1 {
+            font-size: clamp(36px, 6vw, 54px);
+            font-weight: 900;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .header p {
+            font-size: clamp(18px, 3vw, 22px);
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .guidelines-intro {
+            background: var(--card-bg);
+            border: 2px solid rgba(107, 115, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 8px 25px rgba(107, 115, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .guidelines-intro::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+        }
+
+        .guidelines-intro h2 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .guidelines-intro p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        /* Guidelines Sections */
+        .guidelines-section {
+            background: var(--card-bg);
+            border: 2px solid var(--border-light);
+            border-radius: 16px;
+            padding: 35px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(107, 115, 255, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .guidelines-section:hover {
+            border-color: rgba(107, 115, 255, 0.2);
+            box-shadow: 0 6px 20px rgba(107, 115, 255, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            color: white;
+        }
+
+        .section-header h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .guideline-item {
+            background: rgba(107, 115, 255, 0.03);
+            border-left: 4px solid var(--primary-color);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            transition: all 0.2s ease;
+        }
+
+        .guideline-item:hover {
+            background: rgba(107, 115, 255, 0.06);
+            transform: translateX(5px);
+        }
+
+        .guideline-item h4 {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .guideline-item p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* Warning Section */
+        .warning-section {
+            background: rgba(239, 68, 68, 0.05);
+            border: 2px solid rgba(239, 68, 68, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 40px 0;
+        }
+
+        .warning-section .section-icon {
+            background: var(--danger-color);
+        }
+
+        .warning-section h3 {
+            color: var(--danger-color);
+        }
+
+        .warning-item {
+            background: rgba(239, 68, 68, 0.1);
+            border-left: 4px solid var(--danger-color);
+        }
+
+        .warning-item h4 {
+            color: var(--danger-color);
+        }
+
+        /* Support Section */
+        .support-section {
+            background: linear-gradient(135deg, rgba(107, 115, 255, 0.05), rgba(124, 58, 237, 0.03));
+            border: 2px solid rgba(107, 115, 255, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .support-section h3 {
+            font-size: 26px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 15px;
+        }
+
+        .support-section p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 25px;
+        }
+
+        .support-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .support-btn {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .support-btn:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(107, 115, 255, 0.3);
+        }
+
+        .support-btn.secondary {
+            background: var(--accent-color);
+        }
+
+        .support-btn.secondary:hover {
+            background: #05c496;
+        }
+
+        /* Crisis Resources */
+        .crisis-resources {
+            background: rgba(16, 185, 129, 0.05);
+            border: 2px solid rgba(16, 185, 129, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .crisis-resources h4 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--success-color);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .crisis-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .crisis-item {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid var(--border-light);
+        }
+
+        .crisis-item h5 {
+            font-weight: 600;
+            color: var(--success-color);
+            margin-bottom: 8px;
+        }
+
+        .crisis-item p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .crisis-item a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .header {
+                padding: 100px 0 60px;
+            }
+
+            .back-btn {
+                top: 20px;
+                left: 16px;
+                padding: 10px 16px;
+            }
+
+            .main-content {
+                padding: 40px 0;
+            }
+
+            .guidelines-intro,
+            .guidelines-section {
+                padding: 25px;
+            }
+
+            .section-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            .section-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 18px;
+            }
+
+            .support-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .crisis-list {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Navbar */
+        .navbar {
+            background: var(--bg-primary);
+            border-bottom: 2px solid var(--border-light);
+            padding: 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            height: 86px;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 245, 239, 0.9);
+        }
+
+        .nav-container {
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            width: 100vw;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 86px;
+            padding: 0 60px;
+            box-sizing: border-box;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 800;
+            color: var(--primary-color);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            margin-right: 200px;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 0;
+            align-items: center;
+            height: 100%;
+        }
+
+        .nav-links li {
+            height: 100%;
+        }
+
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            padding: 0 16px;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 14px;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .nav-links a:hover {
+            background: var(--bg-secondary);
+            border-bottom-color: var(--primary-color);
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .profile-link {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--border-light);
+        }
+
+        .profile-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Footer */
+        .footer {
+            width: 100%;
+            background: black;
+            border-top: 1px solid var(--border-light);
+            padding: 32px 0;
+            margin-top: 48px;
+            color: white;
+            position: relative;
+        }
+
+        .footer-content {
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        .footer-bottom p {
+            color: var(--text-light);
+            font-size: 12px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 56px;
+                left: 0;
+                right: 0;
+                background: var(--bg-primary);
+                border-bottom: 1px solid var(--border-light);
+                flex-direction: column;
+                height: auto;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-links li {
+                width: 100%;
+                height: auto;
+            }
+
+            .nav-links a {
+                padding: 16px;
+                border-bottom: 1px solid var(--border-light);
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-container">
+                {% if user.is_authenticated %}
+                <a href="{% url 'home' %}" class="logo">💭 EmotionSpace</a>
+                {% else %}
+                <a href="{% url 'main' %}" class="logo">💭 EmotionSpace</a>
+                {% endif %}
+                <ul class="nav-links" id="navLinks">
+                    {% if user.is_authenticated %}
+                    <li><a href="{% url 'home' %}">🏠 Home</a></li>
+                    <li><a href="{% url 'about' %}">ℹ️ About</a></li>
+                    <li><a href="{% url 'dashboard' %}">📊 Dashboard</a></li>
+                    <li><a href="{% url 'logout' %}">🚪 Logout</a></li>
+                    {% else %}
+                    <li><a href="{% url 'main' %}"> Home</a></li>
+                    <li><a href="{% url 'about' %}"> About</a></li>
+                    <li><a href="{% url 'join' %}"> Join</a></li>
+                    {% endif %}
+                </ul>
+
+                {% if user.is_authenticated %}
+                <div class="nav-right">
+                    <a href="#profile" class="profile-link">
+                        <img src="https://via.placeholder.com/32" alt="Profile" class="profile-img" />
+                    </a>
+                    <div class="hamburger" id="hamburger" onclick="toggleMenu()">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header class="header">
+        {% if user.is_authenticated %}
+        <a href="{% url 'home' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        {% else %}
+        <a href="{% url 'home' %}" class="back-button">
+            <i class="fas fa-arrow-left"></i>
+            Back to Home
+        </a>
+        {% endif %}
+        <div class="container">
+            <div class="header-content">
+                <h1>Community Guidelines</h1>
+                <p>Building a safe, supportive space for everyone to heal and grow together</p>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="main-content">
+            <!-- Introduction -->
+            <div class="guidelines-intro">
+                <h2><i class="fas fa-heart"></i> Our Promise to You</h2>
+                <p>EmotionSpace is more than just a platform—it's a sanctuary for healing, growth, and authentic
+                    connection. These guidelines help us maintain a space where vulnerability is honored, pain is
+                    acknowledged, and hope is nurtured. Every interaction here has the power to heal or harm, so we
+                    choose healing, always.</p>
+            </div>
+
+            <!-- Respect & Kindness -->
+            <div class="guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">🤝</div>
+                    <h3>Respect & Kindness</h3>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-check-circle"></i> Practice Empathy</h4>
+                    <p>Remember that behind every confession is a real person with real feelings. Respond with the same
+                        compassion you'd want to receive during your most vulnerable moments.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-check-circle"></i> Honor Different Perspectives</h4>
+                    <p>We all come from different backgrounds and experiences. What might seem insignificant to you
+                        could be life-changing for someone else. Validate, don't minimize.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-check-circle"></i> Use Supportive Language</h4>
+                    <p>Choose words that uplift and encourage. Avoid judgment, criticism, or dismissive comments. When
+                        in doubt, lead with "I hear you" or "You're not alone."</p>
+                </div>
+            </div>
+
+            <!-- Anonymous Safety -->
+            <div class="guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">🔒</div>
+                    <h3>Anonymous & Safe</h3>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-shield-alt"></i> Protect Anonymity</h4>
+                    <p>Never attempt to identify or expose someone's real identity. Don't share personal details that
+                        could compromise someone's anonymity, including your own.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-shield-alt"></i> Keep Confessions Here</h4>
+                    <p>What's shared in EmotionSpace stays in EmotionSpace. Don't screenshot, share, or discuss
+                        confessions outside this platform. Trust is sacred.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-shield-alt"></i> Report Concerning Content</h4>
+                    <p>If you see content that suggests immediate harm to self or others, please report it immediately
+                        so we can connect the person with appropriate resources.</p>
+                </div>
+            </div>
+
+            <!-- Authentic Sharing -->
+            <div class="guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">✨</div>
+                    <h3>Authentic Sharing</h3>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-heart"></i> Share Your Truth</h4>
+                    <p>This is your space to be completely honest about your feelings, experiences, and struggles.
+                        Authenticity creates deeper connections and healing.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-heart"></i> It's Okay to Not Be Okay</h4>
+                    <p>You don't need to have everything figured out or provide solutions. Sometimes just naming your
+                        pain and being witnessed is enough.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-heart"></i> Share at Your Own Pace</h4>
+                    <p>There's no pressure to share more than you're comfortable with. Honor your own boundaries and
+                        emotional capacity.</p>
+                </div>
+            </div>
+
+            <!-- What's Not Allowed (Warning Section) -->
+            <div class="warning-section guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">⚠️</div>
+                    <h3>Community Boundaries</h3>
+                </div>
+
+                <div class="warning-item guideline-item">
+                    <h4><i class="fas fa-times-circle"></i> No Hate or Discrimination</h4>
+                    <p>Content that promotes hatred, discrimination, or harassment based on race, religion, gender,
+                        sexuality, or any other characteristic will result in immediate removal and account suspension.
+                    </p>
+                </div>
+
+                <div class="warning-item guideline-item">
+                    <h4><i class="fas fa-times-circle"></i> No Harmful Advice</h4>
+                    <p>Don't provide medical, legal, or professional advice unless you're qualified to do so. Instead,
+                        encourage seeking appropriate professional help when needed.</p>
+                </div>
+
+                <div class="warning-item guideline-item">
+                    <h4><i class="fas fa-times-circle"></i> No Explicit Content</h4>
+                    <p>While we welcome discussions about sexuality and relationships, explicit sexual content, graphic
+                        violence, or disturbing imagery is not allowed.</p>
+                </div>
+
+                <div class="warning-item guideline-item">
+                    <h4><i class="fas fa-times-circle"></i> No Self-Promotion</h4>
+                    <p>This space is for genuine emotional sharing, not advertising, promoting services, or building
+                        personal brands. Keep the focus on healing and support.</p>
+                </div>
+            </div>
+
+            <!-- Mental Health Support -->
+            <div class="guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">🧠</div>
+                    <h3>Mental Health & Wellness</h3>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-plus-circle"></i> Encourage Professional Help</h4>
+                    <p>If someone is struggling with serious mental health issues, gently encourage them to seek
+                        professional support while still offering emotional validation.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-plus-circle"></i> Share Resources Thoughtfully</h4>
+                    <p>When sharing mental health resources, make sure they're from reputable sources. Personal
+                        recommendations should be clearly labeled as such.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-plus-circle"></i> Recognize Your Limits</h4>
+                    <p>You're not responsible for "fixing" anyone. Sometimes the most helpful thing you can do is listen
+                        and remind someone they're not alone.</p>
+                </div>
+
+                <div class="crisis-resources">
+                    <h4><i class="fas fa-phone"></i> Crisis Resources</h4>
+                    <p>If you or someone you know is in immediate danger, please contact emergency services or these
+                        crisis resources:</p>
+
+                    <div class="crisis-list">
+                        <div class="crisis-item">
+                            <h5>National Suicide Prevention Lifeline</h5>
+                            <p>24/7 crisis support</p>
+                            <a href="tel:988">Call or Text: 988</a>
+                        </div>
+
+                        <div class="crisis-item">
+                            <h5>Crisis Text Line</h5>
+                            <p>Text-based crisis support</p>
+                            <a href="sms:741741">Text: HOME to 741741</a>
+                        </div>
+
+                        <div class="crisis-item">
+                            <h5>International Association for Suicide Prevention</h5>
+                            <p>Global crisis resources</p>
+                            <a href="#" target="_blank">Find local resources</a>
+                        </div>
+
+                        <div class="crisis-item">
+                            <h5>National Domestic Violence Hotline</h5>
+                            <p>24/7 confidential support</p>
+                            <a href="tel:18007997233">1-800-799-7233</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Consequences -->
+            <div class="guidelines-section">
+                <div class="section-header">
+                    <div class="section-icon">⚖️</div>
+                    <h3>Community Accountability</h3>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Progressive Responses</h4>
+                    <p>Violations may result in content removal, warnings, temporary restrictions, or permanent account
+                        suspension, depending on severity and frequency.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Appeal Process</h4>
+                    <p>If you believe action was taken in error, you can appeal through our support team. We're
+                        committed to fair and transparent moderation.</p>
+                </div>
+
+                <div class="guideline-item">
+                    <h4><i class="fas fa-exclamation-triangle"></i> Community Self-Moderation</h4>
+                    <p>We encourage the community to gently redirect conversations that aren't aligned with our values.
+                        Sometimes peer guidance is more effective than moderation.</p>
+                </div>
+            </div>
+
+            <!-- Support Section -->
+            <div class="support-section">
+                <h3>We're Here to Help</h3>
+                <p>Have questions about these guidelines or need support? Our team is committed to maintaining this safe
+                    space for everyone.</p>
+
+                <div class="support-buttons">
+                    <a href="{% url 'contact' %}" class="support-btn">
+                        <i class="fas fa-envelope"></i>
+                        Contact Support
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="{% url 'about' %}">About</a>
+                    <a href="{% url 'contact' %}">Contact</a>
+                    <a href="{% url 'tos' %}">Terms of Service</a>
+                    <a href="{% url 'privacy' %}">Privacy Policy</a>
+                    <a href="{% url 'cg' %}">Community Guidelines</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 EmotionSpace. Created with care for your mental wellness journey.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>
