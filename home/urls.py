@@ -12,4 +12,5 @@ urlpatterns = [
     path("accounts/", include("accounts.urls")),
     path("dashboard/", include("dashboard.urls")),
     path("toggle_heart/<int:confession_id>/", views.toggle_heart, name="toggle_heart"),
+    path('add_comment/<int:confession_id>/', views.add_comment, name='add_comment'),
 ]

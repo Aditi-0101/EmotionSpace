@@ -692,6 +692,121 @@
             margin-right: 0;
         }
     }
+
+    .mood-analysis-breakdown {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 24px;
+    }
+
+    .mood-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .mood-item .mood-label {
+        width: 100px;
+        font-weight: 500;
+        color: var(--text-secondary);
+        flex-shrink: 0;
+    }
+
+    .mood-progress-bar {
+        flex-grow: 1;
+        height: 24px;
+        background-color: var(--bg-tertiary);
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .mood-progress-fill {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 8px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .mood-joy {
+        background: linear-gradient(90deg, #facc15, #fb923c);
+    }
+
+    .mood-sadness {
+        background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    }
+
+    .mood-neutral {
+        background: linear-gradient(90deg, #a3a3a3, #737373);
+    }
+
+    .ai-insight {
+        background: linear-gradient(135deg, rgba(107, 115, 255, 0.05), rgba(124, 58, 237, 0.05));
+        border: 1px solid var(--border-light);
+        border-left: 4px solid var(--primary-color);
+        padding: 16px;
+        border-radius: 8px;
+        margin-top: 24px;
+        color: var(--text-primary);
+        font-size: 14px;
+    }
+
+    /* Add these styles to your main <style> block */
+
+    .suggestion-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        /* Space between suggestion items */
+    }
+
+    .suggestion-item {
+        display: flex;
+        align-items: center;
+        background-color: var(--bg-tertiary);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 16px;
+        transition: all 0.2s ease;
+    }
+
+    .suggestion-item:hover {
+        transform: scale(1.02);
+        box-shadow: 0 4px 15px rgba(107, 115, 255, 0.08);
+        border-color: rgba(107, 115, 255, 0.3);
+    }
+
+    .suggestion-icon {
+        font-size: 24px;
+        margin-right: 16px;
+        background: white;
+        padding: 8px;
+        border-radius: 50%;
+        width: 45px;
+        height: 45px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .suggestion-text h4 {
+        margin: 0 0 4px 0;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .suggestion-text p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
 </style>
 </head>
 
@@ -803,51 +918,126 @@
                     </div>
                 </div>
 
-                <!-- Recent Activity -->
                 <div class="section-card">
                     <div class="section-header">
-                        <h3 class="section-title">Recent Activity</h3>
-                        <a href="#" class="section-link">View All</a>
+                        <h3 class="section-title">🧠 AI Journal Analysis</h3>
                     </div>
-                    <div class="section-content">
-                        <div class="activity-item">
-                            <div class="activity-icon confession">📝</div>
-                            <div class="activity-details">
-                                <div class="activity-title">Posted a new confession</div>
-                                <div class="activity-time">2 hours ago</div>
+                    <div class="section-content" style="padding: 24px;">
+                        {% if mood_analysis %}
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                            Here's the emotional tone detected in your recent journal entries:
+                        </p>
+
+                        <div class="mood-analysis-breakdown">
+                            <div class="mood-item">
+                                <span class="mood-label">😊 Joy</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-joy" style="width: {{ mood_analysis.joy }}%;">{{
+                                        mood_analysis.joy }}%</div>
+                                </div>
+                            </div>
+                            <div class="mood-item">
+                                <span class="mood-label">😢 Sadness</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-sadness"
+                                        style="width: {{ mood_analysis.sadness }}%;">{{ mood_analysis.sadness }}%</div>
+                                </div>
+                            </div>
+                            <div class="mood-item">
+                                <span class="mood-label">😐 Neutral</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-neutral"
+                                        style="width: {{ mood_analysis.neutral }}%;">{{ mood_analysis.neutral }}%</div>
+                                </div>
                             </div>
                         </div>
-                        <div class="activity-item">
-                            <div class="activity-icon like">❤</div>
-                            <div class="activity-details">
-                                <div class="activity-title">Received 12 hearts on your confession</div>
-                                <div class="activity-time">4 hours ago</div>
-                            </div>
+
+                        <div class="ai-insight">
+                            ✨ **AI Insight:** {{ mood_analysis.insight }}
                         </div>
-                        <div class="activity-item">
-                            <div class="activity-icon journal">📖</div>
-                            <div class="activity-details">
-                                <div class="activity-title">Wrote a journal entry</div>
-                                <div class="activity-time">1 day ago</div>
+                        {% else %}
+                        <p style="color: var(--text-secondary);">
+                            Write a few journal entries, and your AI analysis will appear here!
+                        </p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">✨ Personalized Suggestions</h3>
+                    </div>
+                    <div class="section-content" style="padding: 24px;">
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                            Based on your recent entries, here are a few things that might help lift your spirits:
+                        </p>
+
+                        <div class="suggestion-list">
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">📝</div>
+                                <div class="suggestion-text">
+                                    <h4>Write It Out</h4>
+                                    <p>Try focusing on one positive experience from your day, no matter how small.</p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon comment">💬</div>
-                            <div class="activity-details">
-                                <div class="activity-title">Someone commented on your post</div>
-                                <div class="activity-time">2 days ago</div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">🚶‍♂️</div>
+                                <div class="suggestion-text">
+                                    <h4>A Short Walk</h4>
+                                    <p>Just 10 minutes of walking outdoors can improve your mood and clear your head.
+                                    </p>
+                                </div>
                             </div>
-                        </div>
-                        <div class="activity-item">
-                            <div class="activity-icon confession">📝</div>
-                            <div class="activity-details">
-                                <div class="activity-title">Posted a confession about family</div>
-                                <div class="activity-time">3 days ago</div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">🎵</div>
+                                <div class="suggestion-text">
+                                    <h4>Listen to Music</h4>
+                                    <p>Put on a favorite playlist that you associate with good memories.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
+
+
+                <!-- Recent Activity -->
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">Recent Activity</h3>
+                    </div>
+                    <div class="section-content">
+                        <div class="section-content">
+
+                            {% for activity in recent_activities %}
+                            <div class="activity-item">
+                                <div class="activity-icon 
+            {% if activity.activity_type == 'confession' %}confession{% endif %}
+            {% if activity.activity_type == 'journal' %}journal{% endif %}
+            {% if activity.activity_type == 'like' %}like{% endif %}
+            {% if activity.activity_type == 'comment' %}comment{% endif %}
+        ">
+                                    {% if activity.activity_type == 'confession' %}📝{% endif %}
+                                    {% if activity.activity_type == 'journal' %}📖{% endif %}
+                                    {% if activity.activity_type == 'like' %}❤{% endif %}
+                                    {% if activity.activity_type == 'comment' %}💬{% endif %}
+                                </div>
+                                <div class="activity-details">
+                                    <div class="activity-title">{{ activity.description }}</div>
+                                    <div class="activity-time">{{ activity.timestamp|timesince }} ago</div>
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="activity-item">
+                                <div class="activity-details">
+                                    <div class="activity-title">No recent activity yet.</div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
             </div>
+
 
             <!-- Sidebar -->
             <div class="dashboard-sidebar">

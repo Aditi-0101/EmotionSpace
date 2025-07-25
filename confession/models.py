@@ -13,3 +13,12 @@ class Confession(models.Model):
     
     def __str__(self):
         return f"{self.user.username}'s confession"
+    
+class Comment(models.Model):
+    confession = models.ForeignKey(Confession, related_name='comments', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Comment by {self.user.username} on {self.confession}'

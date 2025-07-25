@@ -1,20 +1,24 @@
 from django.shortcuts import render, redirect
 from .models import Confession
 from django.contrib.auth.decorators import login_required
+from dashboard.models import Activity
 
 @login_required
 def create_confession(request):
     if request.method == "POST":
-        user_name = request.POST.get("name")
         user_confession = request.POST.get("confession")
 
 
         new_confession = Confession(
             user = request.user,
-            name=user_name,
             confession=user_confession
         )
-        new_confession.save() 
+        new_confession.save()
+        Activity.objects.create(
+            user=request.user, 
+            activity_type='confession', 
+            description='Posted a new confession'
+        )
         print("New confession added successfully!")
         return redirect("display_confession")
 
@@ -39,10 +43,14 @@ def update_confession(request, id):
     confession = Confession.objects.get(id=id)
 
     if request.method == "POST":
-        confession.name = request.POST.get("name")
         confession.confession = request.POST.get("confession")
         confession.is_edited = True
         confession.save()
+        Activity.objects.create(
+            user=request.user, 
+            activity_type='confession', 
+            description='Updated a confession'
+        )
         return redirect('display_confession')
     
     parameters = {'confession': confession}

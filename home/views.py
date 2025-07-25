@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from confession.models import Confession
 from django.contrib.auth.decorators import login_required
+from dashboard.models import Activity
+from confession.models import Comment
+from django.urls import reverse
 
 def main(request):
     return render(request, "home/main.html", )
@@ -21,7 +24,41 @@ def toggle_heart(request, confession_id):
             confession.hearts.remove(request.user)
         else:
             confession.hearts.add(request.user)
+
+            Activity.objects.create(
+                user=request.user,
+                activity_type='like',
+                description='Liked a confession'
+            )
     return redirect('home')
+
+@login_required
+def add_comment(request, confession_id):
+    confession = Confession.objects.get(id=confession_id)
+    
+    
+    if request.method == 'POST':
+        # Get the text from the form's input field
+        comment_body = request.POST.get('comment_body')
+        
+        # Make sure the comment isn't empty
+        if comment_body:
+            # Create and save the new Comment in the database
+            Comment.objects.create(
+                confession=confession,
+                user=request.user,
+                body=comment_body
+            )
+            
+            # Also create an Activity record for the feed
+            Activity.objects.create(
+                user=request.user,
+                activity_type='comment',
+                description='Commented on a confession'
+            )
+
+    # Redirect the user back to the home page, scrolling to the post they commented on
+    return redirect(f"{reverse('home')}#confession-{confession_id}")
 
 def about(request):
     return render(request, "home/about.html")

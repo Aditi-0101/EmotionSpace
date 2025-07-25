@@ -1,20 +1,30 @@
 from django.shortcuts import render, redirect
 from .models import Journal
 from django.contrib.auth.decorators import login_required
+from dashboard.models import Activity
+from django.utils import timezone
+import requests
 # Create your views here.
+
+api_key="AIzaSyBSE3-kehpQQkPge64skKx8HB2AJI4EgF0"
 
 @login_required
 def create_journal(request):
     if request.method == "POST":
-        date = request.POST.get("date")
         topic = request.POST.get("topic")
         entry = request.POST.get("entry")
     
         Journal.objects.create(
             user=request.user,
-            date=date,
+            date=timezone.now().date(),
             topic=topic,
             entry=entry
+        )
+
+        Activity.objects.create(
+            user=request.user, 
+            activity_type='journal', 
+            description='Wrote a new journal entry'
         )
         
         return redirect('read_journals')
@@ -51,6 +61,11 @@ def edit_journal(request, id):
         journal.is_edited = True
 
         journal.save()
+        Activity.objects.create(
+            user=request.user,
+            activity_type='journal',
+            description='Updated a journal entry'
+        )
         return redirect('read_journal', entry_id=journal.id)
     
     parameters = {'selected_entry': journal}
