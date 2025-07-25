@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import requests
-api_key = 
 # Create your views here.
 
 @login_required

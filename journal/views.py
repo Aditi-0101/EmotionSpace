@@ -65,4 +65,4 @@ def delete_journal(request, id):
     except Journal.DoesNotExist:
         pass 
     
-    return redirect("dashboard")
+    return redirect("read_journal")
