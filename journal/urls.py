@@ -6,4 +6,5 @@ urlpatterns = [
     path('read_journal/<int:entry_id>/',views.read_journal,name="read_journal"),
     path('delete_journal/<int:id>/', views.delete_journal, name='delete_journal'),
     path('edit_journal/<int:id>/', views.edit_journal, name='edit_journal'),
+    path('journal_analysis/<int:id>/', views.journal_analysis, name='journal_analysis'),
 ]

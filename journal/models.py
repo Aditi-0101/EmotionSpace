@@ -9,7 +9,10 @@ class Journal(models.Model):
     entry = models.TextField()
     is_edited = models.BooleanField(default=False)
     date = models.DateField(default=timezone.now)
-    ai_analysis = models.TextField(blank=True, null=True)
+    joy = models.FloatField(null=True, blank=True)
+    sad = models.FloatField(null=True, blank=True)
+    neutral = models.FloatField(null=True, blank=True)
+    ai_insight = models.JSONField(null=True, blank=True)
     
     def _str_(self):
         return self.topic

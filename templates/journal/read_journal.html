@@ -1,456 +1,610 @@
 {% extends 'base.html' %}
 {% block body %}
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    
+    /* Floating background elements */
+    .bg-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .floating-shape {
+      position: absolute;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 6s ease-in-out infinite;
+    }
+    
+    .shape1 {
+      width: 150px;
+      height: 150px;
+      top: 10%;
+      right: 10%;
+      animation-delay: 0s;
+    }
+    
+    .shape2 {
+      width: 100px;
+      height: 100px;
+      top: 70%;
+      right: 15%;
+      animation-delay: 2s;
+    }
+    
+    .shape3 {
+      width: 80px;
+      height: 80px;
+      top: 30%;
+      right: 5%;
+      animation-delay: 4s;
+    }
+    
+    @keyframes float {
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+      50% {
+        transform: translateY(-20px) rotate(180deg);
+      }
+    }
+    
+    /* Main Container */
+    .main-container {
+      display: flex;
+      align-items: flex-start;
+      min-height: calc(100vh - 80px);
+      padding: 40px 50px;
+      gap: 30px;
+    }
+    
+    /* Left Timeline Section */
+    .timeline-section {
+      width: 320px;
+      position: relative;
+    }
+    
+    .timeline-header {
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(15px);
+      padding: 25px;
+      border-radius: 20px;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      margin-bottom: 30px;
+      text-align: center;
+    }
+    
+    .timeline-header h2 {
+      color: #2d1b69;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    
+    a {
+      text-decoration: none;
+    }
+    
+    .timeline-header p {
+      color: #2d1b69;
+      opacity: 0.8;
+      font-size: 14px;
+    }
+    
+    /* Timeline Path */
+    .timeline-container {
+      position: relative;
+    }
+    
+    .timeline-path {
+      position: absolute;
+      left: 30px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(to bottom, #ff8a80, #ffb74d);
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+      padding-left: 70px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-item:hover {
+      transform: translateX(5px);
+    }
+    
+    .timeline-item.active {
+      transform: translateX(10px);
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 22px;
+      top: 15px;
+      width: 16px;
+      height: 16px;
+      background: white;
+      border: 3px solid #ff8a80;
+      border-radius: 50%;
+      z-index: 2;
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-item.active .timeline-dot {
+      background: #ff8a80;
+      border-color: white;
+      box-shadow: 0 0 15px rgba(255, 138, 128, 0.5);
+    }
+    
+    .timeline-card {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 15px;
+      padding: 20px;
+      transition: all 0.3s ease;
+    }
+    
+    .timeline-item:hover .timeline-card {
+      background: rgba(255, 255, 255, 0.35);
+    }
+    
+    .timeline-item.active .timeline-card {
+      background: rgba(255, 255, 255, 0.4);
+      border-color: rgba(255, 255, 255, 0.5);
+    }
+    
+    .timeline-date {
+      color: #2d1b69;
+      font-size: 12px;
+      font-weight: 600;
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+    
+    .timeline-topic {
+      color: #2d1b69;
+      font-size: 16px;
+      font-weight: 600;
+    }
+    
+    /* Right Paper Section */
+    .paper-section {
+      flex: 1;
+      position: relative;
+    }
+    
+    .paper-container {
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      min-height: 600px;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    /* Paper lines effect */
+    .paper-container::before {
+      content: '';
+      position: absolute;
+      top: 80px;
+      left: 80px;
+      right: 0;
+      bottom: 0;
+      background-image: repeating-linear-gradient(transparent, transparent 27px, #e8f4fd 28px, #e8f4fd 29px);
+      pointer-events: none;
+      opacity: 0.3;
+    }
+    
+    /* Red margin line */
+    .paper-container::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 80px;
+      bottom: 0;
+      width: 2px;
+      background: #ff6b6b;
+      opacity: 0.3;
+      pointer-events: none;
+    }
+    
+    .paper-content {
+      padding: 50px;
+      position: relative;
+      z-index: 2;
+      padding-left: 100px;
+    }
+    
+    .entry-date-display {
+      color: #666;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid #f0f0f0;
+    }
+    
+    .entry-topic-display {
+      color: #2d1b69;
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 30px;
+      line-height: 1.3;
+    }
+    
+    .entry-content-display {
+      color: #333;
+      font-size: 16px;
+      line-height: 1.8;
+      margin-bottom: 50px;
+      white-space: pre-wrap;
+      font-family: 'Georgia', serif;
+    }
+    
+    .paper-actions {
+      display: flex;
+      gap: 15px;
+      justify-content: flex-end;
+      padding-top: 20px;
+      border-top: 2px solid #f0f0f0;
+    }
+    
+    .action-button {
+      padding: 12px 25px;
+      border: none;
+      border-radius: 25px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 14px;
+    }
+    
+    .edit-button {
+      background: linear-gradient(135deg, #594cafff, #4554a0ff);
+      color: white;
+    }
+    
+    .edit-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(76, 78, 175, 0.3);
+    }
+    
+    .analysis-button {
+      background: linear-gradient(135deg, #4caf50, #45a049);
+      color: white;
+    }
+    
+    .analysis-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+    }
+    
+    .delete-button {
+      background: linear-gradient(135deg, #f44336, #d32f2f);
+      color: white;
+    }
+    
+    .delete-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
+    }
+    
+    /* Empty state */
+    .empty-paper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: #666;
+      text-align: center;
+    }
+    
+    .empty-icon {
+      font-size: 64px;
+      opacity: 0.3;
+      margin-bottom: 20px;
+      color: #ddd;
+    }
+    
+    .empty-text {
+      font-size: 18px;
+      margin-bottom: 10px;
+      opacity: 0.6;
+    }
+    
+    .empty-subtext {
+      font-size: 14px;
+      opacity: 0.5;
+    }
+    
+    /* New Entry Button */
+    .new-entry-btn {
+      position: fixed; /* Position fixed to float */
+      bottom: 30px; /* Distance from bottom */
+      right: 30px; /* Distance from right */
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #ff8a80, #ff6b9d);
+      border-radius: 50%;
+      font-size: 24px;
+      color: white;
+      display: flex; /* Center the plus sign */
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      text-decoration: none;
+      box-shadow: 0 5px 20px rgba(255, 138, 128, 0.3);
+      transition: all 0.3s ease;
+      z-index: 1000; /* Stay on top */
+    }
+    
+    .new-entry-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 8px 25px rgba(255, 138, 128, 0.5);
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .main-container {
+        flex-direction: column;
+        padding: 20px;
+        gap: 20px;
+      }
+    
+      .timeline-section {
+        width: 100%;
+      }
+    
+      .header {
+        padding: 20px;
+      }
+    
+      .nav-links {
+        display: none;
+      }
+    
+      .paper-content {
+        padding: 30px 25px;
+        padding-left: 45px;
+      }
+    
+      .new-entry-btn {
+        bottom: 20px;
+        right: 20px;
+      }
+    }
+    
+    .section-header {
+      background: linear-gradient(135deg, rgba(107, 115, 255, 0.05) 0%, rgba(124, 58, 237, 0.03) 100%);
+      border-bottom: 1px solid #eee;
+      padding: 20px 24px;
+    }
+    
+    .section-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: #333;
+    }
+    
+    .mood-analysis-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    
+    .mood-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .mood-item .mood-label {
+      width: 100px;
+      font-weight: 500;
+      color: #555;
+    }
+    
+    .mood-progress-bar {
+      flex-grow: 1;
+      height: 24px;
+      background-color: #f0f0f0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+    
+    .mood-progress-fill {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 8px;
+      color: white;
+      font-size: 12px;
+      font-weight: 600;
+      border-radius: 6px;
+      transition: width 0.5s ease-in-out;
+    }
+    
+    .mood-joy {
+      background: linear-gradient(90deg, #facc15, #fb923c);
+    }
+    
+    .mood-sadness {
+      background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    }
+    
+    .mood-neutral {
+      background: linear-gradient(90deg, #a3a3a3, #737373);
+    }
+    
+    .ai-insight {
+      background: #f8f7ff;
+      border-left: 4px solid #7c3aed;
+      padding: 16px;
+      border-radius: 8px;
+      margin-top: 16px;
+      color: #333;
+      font-size: 15px;
+      white-space: pre-wrap;
+      line-height: 1.6;
+    }
+  </style>
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
+  <div class="bg-elements">
+    <div class="floating-shape shape1"></div>
+    <div class="floating-shape shape2"></div>
+    <div class="floating-shape shape3"></div>
+  </div>
 
-        /* Floating background elements */
-        .bg-elements {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            pointer-events: none;
-        }
+  <div class="main-container">
+    <!-- Left Timeline -->
+    <div class="timeline-section">
+      <div class="timeline-header">
+        <h2>Journal History</h2>
+        <p>Click on any entry to view details</p>
+      </div>
 
-        .floating-shape {
-            position: absolute;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.1);
-            animation: float 6s ease-in-out infinite;
-        }
+      <div class="timeline-container">
+        <div class="timeline-path"></div>
 
-        .shape1 {
-            width: 150px;
-            height: 150px;
-            top: 10%;
-            right: 10%;
-            animation-delay: 0s;
-        }
-
-        .shape2 {
-            width: 100px;
-            height: 100px;
-            top: 70%;
-            right: 15%;
-            animation-delay: 2s;
-        }
-
-        .shape3 {
-            width: 80px;
-            height: 80px;
-            top: 30%;
-            right: 5%;
-            animation-delay: 4s;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0px) rotate(0deg); }
-            50% { transform: translateY(-20px) rotate(180deg); }
-        }
-
-        /* Main Container */
-        .main-container {
-            display: flex;
-            align-items: flex-start;
-            min-height: calc(100vh - 80px);
-            padding: 40px 50px;
-            gap: 30px;
-        }
-
-        /* Left Timeline Section */
-        .timeline-section {
-            width: 320px;
-            position: relative;
-        }
-
-        .timeline-header {
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(15px);
-            padding: 25px;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        .timeline-header h2 {
-            color: #2D1B69;
-            font-size: 24px;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        a {
-            text-decoration:none;
-        }
-
-        .timeline-header p {
-            color: #2D1B69;
-            opacity: 0.8;
-            font-size: 14px;
-        }
-
-        /* Timeline Path */
-        .timeline-container {
-            position: relative;
-        }
-
-        .timeline-path {
-            position: absolute;
-            left: 30px;
-            top: 0;
-            bottom: 0;
-            width: 3px;
-            background: linear-gradient(to bottom, #FF8A80, #FFB74D);
-            border-radius: 2px;
-        }
-
-        .timeline-item {
-            position: relative;
-            margin-bottom: 25px;
-            padding-left: 70px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:hover {
-            transform: translateX(5px);
-        }
-
-        .timeline-item.active {
-            transform: translateX(10px);
-        }
-
-        .timeline-dot {
-            position: absolute;
-            left: 22px;
-            top: 15px;
-            width: 16px;
-            height: 16px;
-            background: white;
-            border: 3px solid #FF8A80;
-            border-radius: 50%;
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item.active .timeline-dot {
-            background: #FF8A80;
-            border-color: white;
-            box-shadow: 0 0 15px rgba(255, 138, 128, 0.5);
-        }
-
-        .timeline-card {
-            background: rgba(255, 255, 255, 0.25);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 15px;
-            padding: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:hover .timeline-card {
-            background: rgba(255, 255, 255, 0.35);
-        }
-
-        .timeline-item.active .timeline-card {
-            background: rgba(255, 255, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .timeline-date {
-            color: #2D1B69;
-            font-size: 12px;
-            font-weight: 600;
-            opacity: 0.8;
-            margin-bottom: 8px;
-        }
-
-        .timeline-topic {
-            color: #2D1B69;
-            font-size: 16px;
-            font-weight: 600;
-        }
-
-        /* Right Paper Section */
-        .paper-section {
-            flex: 1;
-            position: relative;
-        }
-
-        .paper-container {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            min-height: 600px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        /* Paper lines effect */
-        .paper-container::before {
-            content: '';
-            position: absolute;
-            top: 80px;
-            left: 80px;
-            right: 0;
-            bottom: 0;
-            background-image: repeating-linear-gradient(
-                transparent,
-                transparent 27px,
-                #e8f4fd 28px,
-                #e8f4fd 29px
-            );
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        /* Red margin line */
-        .paper-container::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 80px;
-            bottom: 0;
-            width: 2px;
-            background: #ff6b6b;
-            opacity: 0.3;
-            pointer-events: none;
-        }
-
-        .paper-content {
-            padding: 50px;
-            position: relative;
-            z-index: 2;
-            padding-left: 100px;
-        }
-
-        .entry-date-display {
-            color: #666;
-            font-size: 14px;
-            font-weight: 500;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .entry-topic-display {
-            color: #2D1B69;
-            font-size: 28px;
-            font-weight: 700;
-            margin-bottom: 30px;
-            line-height: 1.3;
-        }
-
-        .entry-content-display {
-            color: #333;
-            font-size: 16px;
-            line-height: 1.8;
-            margin-bottom: 50px;
-            white-space: pre-wrap;
-            font-family: 'Georgia', serif;
-        }
-
-        .paper-actions {
-            display: flex;
-            gap: 15px;
-            justify-content: flex-end;
-            padding-top: 20px;
-            border-top: 2px solid #f0f0f0;
-        }
-
-        .action-button {
-            padding: 12px 25px;
-            border: none;
-            border-radius: 25px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 14px;
-        }
-
-        .edit-button {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
-            color: white;
-        }
-
-        .edit-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
-        }
-
-        .delete-button {
-            background: linear-gradient(135deg, #f44336, #d32f2f);
-            color: white;
-        }
-
-        .delete-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(244, 67, 54, 0.3);
-        }
-
-        /* Empty state */
-        .empty-paper {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: #666;
-            text-align: center;
-        }
-
-        .empty-icon {
-            font-size: 64px;
-            opacity: 0.3;
-            margin-bottom: 20px;
-            color: #ddd;
-        }
-
-        .empty-text {
-            font-size: 18px;
-            margin-bottom: 10px;
-            opacity: 0.6;
-        }
-
-        .empty-subtext {
-            font-size: 14px;
-            opacity: 0.5;
-        }
-
-        /* New Entry Button */
-        .new-entry-btn {
-            position: fixed;              /* Position fixed to float */
-            bottom: 30px;                 /* Distance from bottom */
-            right: 30px;                  /* Distance from right */
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #FF8A80, #FF6B9D);
-            border-radius: 50%;
-            font-size: 24px;
-            color: white;
-            display: flex;               /* Center the plus sign */
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            text-decoration: none;
-            box-shadow: 0 5px 20px rgba(255, 138, 128, 0.3);
-            transition: all 0.3s ease;
-            z-index: 1000;               /* Stay on top */
-        }
-
-        .new-entry-btn:hover {
-            transform: scale(1.1);
-            box-shadow: 0 8px 25px rgba(255, 138, 128, 0.5);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-container {
-                flex-direction: column;
-                padding: 20px;
-                gap: 20px;
-            }
-
-            .timeline-section {
-                width: 100%;
-            }
-
-            .header {
-                padding: 20px;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .paper-content {
-                padding: 30px 25px;
-                padding-left: 45px;
-            }
-
-            .new-entry-btn {
-                bottom: 20px;
-                right: 20px;
-            }
-        }
-    </style>
-</head>
-<body>
-    <div class="bg-elements">
-        <div class="floating-shape shape1"></div>
-        <div class="floating-shape shape2"></div>
-        <div class="floating-shape shape3"></div>
+        <!-- Timeline Items - Replace with Django loop -->
+        {% for j in all_journals %}
+          <a href="{% url 'read_journal' j.id %}" class="timeline-item active">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="timeline-date">{{ j.date }}</div>
+              <div class="timeline-topic">{{ j.topic }}</div>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
     </div>
 
-    <div class="main-container">
-        <!-- Left Timeline -->
-        <div class="timeline-section">
-            <div class="timeline-header">
-                <h2>Journal History</h2>
-                <p>Click on any entry to view details</p>
+    <!-- Right Paper -->
+    <div class="paper-section">
+      <div class="paper-container">
+        {% if selected_entry %}
+          <div class="paper-content">
+            <div class="entry-date-display">{{ selected_entry.created_at|date:'F j, Y' }}</div>
+            {% if confession.is_edited %}
+              <span style="color: gray; font-size: 0.8rem;">(edited)</span>
+            {% endif %}
+            <div class="entry-topic-display">{{ selected_entry.topic }}</div>
+            <div class="entry-content-display">{{ selected_entry.entry }}</div>
+            <div class="paper-actions">
+              <a class="action-button analysis-button" href="{% url 'journal_analysis' selected_entry.id %}">🧠 Analysis</a>
+              <a class="action-button edit-button" href="{% url 'edit_journal' selected_entry.id %}">✏️ Edit</a>
+              <a class="action-button delete-button" href="{% url 'delete_journal' selected_entry.id %}">🗑️ Delete</a>
             </div>
-
-            <div class="timeline-container">
-                <div class="timeline-path"></div>
-                
-                <!-- Timeline Items - Replace with Django loop -->
-                 {% for j in all_journals %}
-                <a href="{% url 'read_journal' j.id %}" class="timeline-item active">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-card">
-                        <div class="timeline-date">{{ j.date }}</div>
-                        <div class="timeline-topic">{{ j.topic }}</div>
-                    </div>
-                </a>
-                {% endfor %}
-
-                
-            </div>
-        </div>
-
-        <!-- Right Paper -->
-        <div class="paper-section">
-            <div class="paper-container">
-                {% if selected_entry %}
-                <div class="paper-content">
-                    <div class="entry-date-display">{{ selected_entry.created_at|date:"F j, Y" }}</div>
-                    {% if confession.is_edited %}
-                        <span style="color: gray; font-size: 0.8rem;">(edited)</span>
-                    {% endif %}
-                    <div class="entry-topic-display">{{ selected_entry.topic }}</div>
-                    <div class="entry-content-display">{{ selected_entry.entry }}</div>
-                    <div class="paper-actions">
-                        <a class="action-button edit-button" href="{% url 'edit_journal' selected_entry.id %}">✏️ Edit</a>
-                        <a class="action-button delete-button" href="{% url 'delete_journal' selected_entry.id %}">🗑️ Delete</a>
-                    </div>
-                </div>
-                {% else %}
-                <div class="paper-content">Select any journal from the history to view.</div>
-                {% endif %}
-            </div>
-        </div>
+          </div>
+        {% else %}
+          <div class="paper-content">Select any journal from the history to view.</div>
+        {% endif %}
+      </div>
     </div>
+  </div>
 
-    <a class="new-entry-btn" href="{% url 'create_journal' %}">➕</a>
+  <a class="new-entry-btn" href="{% url 'create_journal' %}">➕</a>
 
-</body>
-</html>
+  {% if ai_insight %}
+    <div id="ai-modal-overlay" class="modal-overlay">
+      <div class="modal-content">
+        <button id="close-modal-btn" class="close-btn" title="Close">&times;</button>
+
+        <div class="section-header">
+          <h3 class="section-title">🧠 AI Journal Analysis</h3>
+        </div>
+
+        <div style="padding: 24px;">
+          <p style="margin-bottom: 20px; color: #555;">Here's the emotional tone detected in your entry:</p>
+
+          <div class="mood-analysis-breakdown">
+            <div class="mood-item">
+              <span class="mood-label">😊 Joy</span>
+              <div class="mood-progress-bar">
+                <div class="mood-progress-fill mood-joy" style="width: {{ ai_insight.joy }}%;">{{ ai_insight.joy }}%</div>
+              </div>
+            </div>
+            <div class="mood-item">
+              <span class="mood-label">😢 Sadness</span>
+              <div class="mood-progress-bar">
+                <div class="mood-progress-fill mood-sadness" style="width: {{ ai_insight.sadness }}%;">{{ ai_insight.sadness }}%</div>
+              </div>
+            </div>
+            <div class="mood-item">
+              <span class="mood-label">😐 Neutral</span>
+              <div class="mood-progress-bar">
+                <div class="mood-progress-fill mood-neutral" style="width: {{ ai_insight.neutral }}%;">{{ ai_insight.neutral }}%</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ai-insight">
+            <strong>✨ AI Insight:</strong><br />{{ ai_insight.insight|linebreaksbr }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const modalOverlay = document.getElementById('ai-modal-overlay')
+    
+      // Check if the modal exists on the page
+      if (modalOverlay) {
+        const closeModalBtn = document.getElementById('close-modal-btn')
+    
+        // Function to close the modal
+        function closeModal() {
+          modalOverlay.style.display = 'none'
+        }
+    
+        // Close modal when the close button is clicked
+        closeModalBtn.addEventListener('click', closeModal)
+    
+        // Close modal when clicking on the overlay background
+        modalOverlay.addEventListener('click', function (event) {
+          if (event.target === modalOverlay) {
+            closeModal()
+          }
+        })
+    
+        // Close modal with the Escape key
+        document.addEventListener('keydown', function (event) {
+          if (event.key === 'Escape') {
+            closeModal()
+          }
+        })
+      }
+    })
+  </script>
 {% endblock %}

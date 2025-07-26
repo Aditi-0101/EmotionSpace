@@ -1,0 +1,336 @@
+{% extends 'base.html' %}
+{% block body %}
+
+<style>
+    :root {
+        --primary-color: #6b73ff;
+        --secondary-color: #7c3aed;
+        --accent-color: #06d6a0;
+        --success-color: #10b981;
+        --warning-color: #f59e0b;
+        --danger-color: #ef4444;
+
+        --text-primary: #1f2937;
+        --text-secondary: #4b5563;
+        --text-light: #9ca3af;
+
+        --bg-primary: #f8fafc;
+        --bg-secondary: #ffffff;
+        --bg-tertiary: #f1f5f9;
+        --card-bg: #ffffff;
+
+        --border-light: #e2e8f0;
+        --border-medium: #cbd5e1;
+        --border-dark: #64748b;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 16px;
+    }
+
+    /* Side Navigation Orbs */
+    .nav-orbs {
+        position: fixed;
+        right: 40px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 42px;
+        z-index: 999;
+        opacity: 1;
+        visibility: visible;
+        transition: all 0.3s ease;
+    }
+
+    .nav-orb {
+        width: 50px;
+        height: 50px;
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 18px;
+        cursor: pointer;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        transition: all 0.2s ease;
+        position: relative;
+        text-decoration: none;
+    }
+
+    .nav-orb:hover {
+        transform: scale(1.1);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        background: var(--primary-color);
+        color: white;
+    }
+
+    /* Recent Activity Section */
+    .section-card {
+        background: var(--card-bg);
+        border: 1px solid var(--border-light);
+        border-radius: 12px;
+        padding: 0;
+        margin-bottom: 32px;
+        box-shadow: 0 2px 12px rgba(107, 115, 255, 0.08);
+        overflow: hidden;
+    }
+
+    .section-card:hover {
+        border-color: rgba(107, 115, 255, 0.3);
+        box-shadow: 0 8px 25px rgba(107, 115, 255, 0.15);
+    }
+
+    .section-header {
+        background: var(--bg-tertiary);
+        border-bottom: 1px solid var(--border-light);
+        padding: 16px 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .section-title {
+        font-size: 17px;
+        font-weight: 700;
+        color: var(--text-primary);
+    }
+
+    .section-content {
+        padding: 20px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        .container {
+            padding: 16px 12px;
+        }
+
+        .nav-orbs {
+            display: none;
+        }
+    }
+
+    .mood-analysis-breakdown {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .mood-item {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .mood-item .mood-label {
+        width: 100px;
+        font-weight: 500;
+        color: var(--text-secondary);
+    }
+
+    .mood-progress-bar {
+        flex-grow: 1;
+        height: 20px;
+        background-color: var(--bg-tertiary);
+        border-radius: 5px;
+        overflow: hidden;
+    }
+
+    .mood-progress-fill {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 8px;
+        color: white;
+        font-size: 12px;
+        font-weight: 600;
+        border-radius: 6px;
+        transition: width 0.5s ease-in-out;
+    }
+
+    .mood-joy {
+        background: linear-gradient(90deg, #facc15, #fb923c);
+    }
+
+    .mood-sadness {
+        background: linear-gradient(90deg, #60a5fa, #3b82f6);
+    }
+
+    .mood-neutral {
+        background: linear-gradient(90deg, #a3a3a3, #737373);
+    }
+
+    .ai-insight {
+        background: var(--bg-tertiary);
+        border-left: 4px solid var(--primary-color);
+        padding: 16px;
+        border-radius: 6px;
+        margin-top: 14px;
+        color: var(--text-primary);
+        font-size: 14px;
+        white-space: pre-wrap;
+    }
+
+    /* Add these styles to your main <style> block */
+
+    .suggestion-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        /* Space between suggestion items */
+    }
+
+    .suggestion-item {
+        display: flex;
+        align-items: center;
+        background-color: var(--bg-tertiary);
+        border: 1px solid var(--border-light);
+        border-radius: 10px;
+        padding: 14px;
+        transition: all 0.2s ease;
+    }
+
+    .suggestion-item:hover {
+        transform: scale(1.01);
+        box-shadow: 0 3px 10px rgba(107, 115, 255, 0.07);
+        border-color: rgba(107, 115, 255, 0.3);
+    }
+
+    .suggestion-icon {
+        font-size: 22px;
+        margin-right: 14px;
+        background: white;
+        padding: 8px;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .suggestion-text h4 {
+        margin: 0 0 4px 0;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+    }
+
+    .suggestion-text p {
+        margin: 0;
+        font-size: 13px;
+        color: var(--text-secondary);
+    }
+</style>
+    <!-- Side Navigation Orbs -->
+    <nav class="nav-orbs">
+        {% if user.is_authenticated %}
+        <a class="nav-orb" href="{% url 'ask_ai' %}" data-tooltip="AI Bot">🤖</a>
+        <a class="nav-orb" href="{% url 'create_journal' %}" data-tooltip="Write Journal">📝</a>
+        <a class="nav-orb" href="{% url 'read_journals' %}" data-tooltip="Read Journal">📔</a>
+        <a class="nav-orb" href="{% url 'create_confession' %}" data-tooltip="Confess">📖</a>
+        <a class="nav-orb" href="{% url 'display_confession' %}" data-tooltip="My Confessions">🤫</a>
+        {% endif %}
+    </nav>
+
+    <div class="section-card">
+        <div class="section-header">
+            <h3 class="section-title">🧠 AI Journal Analysis</h3>
+        </div>
+        <div class="section-content" style="padding: 24px;">
+                        
+                        <!-- Check if the ai_insight dictionary exists -->
+                        {% if ai_insight %}
+                        
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                            Here's the emotional tone detected in your recent journal entry:
+                        </p>
+
+                        <div class="mood-analysis-breakdown">
+                            <div class="mood-item">
+                                <span class="mood-label">😊 Joy</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-joy" style="width: {{ ai_insight.joy }}%;">{{ ai_insight.joy }}%</div>
+                                </div>
+                            </div>
+                            <div class="mood-item">
+                                <span class="mood-label">😢 Sadness</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-sadness" style="width: {{ ai_insight.sadness }}%;">{{ ai_insight.sadness }}%</div>
+                                </div>
+                            </div>
+                            <div class="mood-item">
+                                <span class="mood-label">😐 Neutral</span>
+                                <div class="mood-progress-bar">
+                                    <div class="mood-progress-fill mood-neutral" style="width: {{ ai_insight.neutral }}%;">{{ ai_insight.neutral }}%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="ai-insight">
+                            ✨ AI Insight: {{ ai_insight.insight|linebreaksbr }}
+                        </div>
+
+                        {% else %}
+                        
+                        <p style="color: var(--text-secondary);">
+                            Write a journal entry, and your AI analysis will appear here!
+                        </p>
+                        
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="section-card">
+                    <div class="section-header">
+                        <h3 class="section-title">✨ Personalized Suggestions</h3>
+                    </div>
+                    <div class="section-content" style="padding: 24px;">
+                        <p style="margin-bottom: 20px; color: var(--text-secondary);">
+                            Based on your recent entries, here are a few things that might help lift your spirits:
+                        </p>
+
+                        <div class="suggestion-list">
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">📝</div>
+                                <div class="suggestion-text">
+                                    <h4>Write It Out</h4>
+                                    <p>Try focusing on one positive experience from your day, no matter how small.</p>
+                                </div>
+                            </div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">🚶‍♂️</div>
+                                <div class="suggestion-text">
+                                    <h4>A Short Walk</h4>
+                                    <p>Just 10 minutes of walking outdoors can improve your mood and clear your head.
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="suggestion-item">
+                                <div class="suggestion-icon">🎵</div>
+                                <div class="suggestion-text">
+                                    <h4>Listen to Music</h4>
+                                    <p>Put on a favorite playlist that you associate with good memories.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            
+
+
+  
+{% endblock %}
