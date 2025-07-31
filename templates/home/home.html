@@ -1,806 +1,873 @@
 {% extends 'base.html' %}
 {% block body %}
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-<style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+  <style>
     :root {
-        --primary-color: #6b73ff;
-        --secondary-color: #7c3aed;
-        --accent-color: #06d6a0;
-        --success-color: #10b981;
-        --warning-color: #f59e0b;
-
-        --text-primary: #1f2937;
-        --text-secondary: #4b5563;
-        --text-light: #9ca3af;
-
-        --bg-primary: #f8fafc;
-        --bg-secondary: #ffffff;
-        --bg-tertiary: #f1f5f9;
-        --card-bg: #ffffff;
-
-        --border-light: #e2e8f0;
-        --border-medium: #cbd5e1;
-        --border-dark: #64748b;
+      --primary-color: #6b73ff;
+      --secondary-color: #7c3aed;
+      --accent-color: #06d6a0;
+      --success-color: #10b981;
+      --warning-color: #f59e0b;
+    
+      --text-primary: #1f2937;
+      --text-secondary: #4b5563;
+      --text-light: #9ca3af;
+    
+      --bg-primary: #f8fafc;
+      --bg-secondary: #ffffff;
+      --bg-tertiary: #f1f5f9;
+      --card-bg: #ffffff;
+    
+      --border-light: #e2e8f0;
+      --border-medium: #cbd5e1;
+      --border-dark: #64748b;
     }
-
+    
     * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-
+    
     body {
-        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        line-height: 1.6;
-        color: var(--text-primary);
-        background: var(--bg-primary);
-        font-size: 14px;
-        overflow-x: hidden;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: var(--bg-primary);
+      font-size: 14px;
+      overflow-x: hidden;
     }
-
+    
     .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 16px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 16px;
     }
-
+    
     /* Enhanced Hero Section */
     .hero {
-        min-height: 100vh;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        padding: 120px 0 80px;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      padding: 120px 0 80px;
     }
-
+    
     .hero::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-image:
-            url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"),
-            url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
-        background-position: 0 0, 30px 30px;
-        background-size: 120px 120px, 200px 200px;
-        animation: float 20s ease-in-out infinite;
-        pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='4'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E"), url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cpath d='M50 5 L90 25 L90 75 L50 95 L10 75 L10 25 Z' fill='none' stroke='%23ffffff' stroke-width='0.5' stroke-opacity='0.1'/%3E%3C/svg%3E");
+      background-position: 0 0, 30px 30px;
+      background-size: 120px 120px, 200px 200px;
+      animation: float 20s ease-in-out infinite;
+      pointer-events: none;
     }
-
+    
     .hero::after {
-        content: "";
-        position: absolute;
-        top: 10%;
-        left: 10%;
-        width: 80px;
-        height: 80px;
-        background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.3'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
-        animation: float 8s ease-in-out infinite;
-        pointer-events: none;
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      width: 80px;
+      height: 80px;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='1' stroke-opacity='0.3'%3E%3Ccircle cx='12' cy='12' r='10'/%3E%3Cpath d='m9 12 2 2 4-4'/%3E%3C/svg%3E");
+      animation: float 8s ease-in-out infinite;
+      pointer-events: none;
     }
-
+    
     .hero-content {
-        max-width: 700px;
-        margin: 0 auto;
-        text-align: center;
-        position: relative;
-        z-index: 10;
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+      position: relative;
+      z-index: 10;
     }
-
+    
     .hero h1 {
-        font-size: clamp(48px, 8vw, 80px);
-        font-weight: 900;
-        margin-bottom: 24px;
-        color: #ffffff;
-        text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        line-height: 1.1;
-        letter-spacing: -0.02em;
+      font-size: clamp(48px, 8vw, 80px);
+      font-weight: 900;
+      margin-bottom: 24px;
+      color: #ffffff;
+      text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      line-height: 1.1;
+      letter-spacing: -0.02em;
     }
-
+    
     .hero p {
-        font-size: clamp(18px, 3vw, 24px);
-        color: rgba(255, 255, 255, 0.95);
-        margin-bottom: 40px;
-        font-weight: 500;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        max-width: 600px;
-        margin-left: auto;
-        margin-right: auto;
+      font-size: clamp(18px, 3vw, 24px);
+      color: rgba(255, 255, 255, 0.95);
+      margin-bottom: 40px;
+      font-weight: 500;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
     }
-
+    
     .cta-button {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.95);
-        color: var(--primary-color);
-        padding: 18px 36px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 700;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        backdrop-filter: blur(10px);
-        border: 2px solid rgba(255, 255, 255, 0.3);
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.95);
+      color: var(--primary-color);
+      padding: 18px 36px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+      backdrop-filter: blur(10px);
+      border: 2px solid rgba(255, 255, 255, 0.3);
     }
-
+    
     .cta-button:hover {
-        transform: translateY(-3px) scale(1.05);
-        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-        background: #ffffff;
+      transform: translateY(-3px) scale(1.05);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      background: #ffffff;
     }
-
+    
     /* Floating Elements */
     .floating-element {
-        position: absolute;
-        pointer-events: none;
-        z-index: 5;
+      position: absolute;
+      pointer-events: none;
+      z-index: 5;
     }
-
+    
     .floating-emoji1 {
-        font-size: clamp(110px, 40vw, 100px);
-        animation: float 6s ease-in-out infinite;
+      font-size: clamp(110px, 40vw, 100px);
+      animation: float 6s ease-in-out infinite;
     }
-
+    
     .floating-emoji2 {
-        font-size: clamp(200px, 100vw, 175px);
-        animation: float 6s ease-in-out infinite;
+      font-size: clamp(200px, 100vw, 175px);
+      animation: float 6s ease-in-out infinite;
     }
-
+    
     .floating-emoji3 {
-        font-size: clamp(130px, 50vw, 110px);
-        animation: float 6s ease-in-out infinite;
+      font-size: clamp(130px, 50vw, 110px);
+      animation: float 6s ease-in-out infinite;
     }
-
+    
     /* Floating image */
     .floating-img1 {
-        width: clamp(350px, 200vw, 400px);
-        height: clamp(170px, 70vw, 180px);
-        animation: float 6s ease-in-out infinite;
+      width: clamp(350px, 200vw, 400px);
+      height: clamp(170px, 70vw, 180px);
+      animation: float 6s ease-in-out infinite;
     }
-
+    
     .floating-img2 {
-        width: clamp(410px, 250vw, 470px);
-        height: clamp(190px, 90vw, 250px);
-        animation: float 6s ease-in-out infinite;
+      width: clamp(410px, 250vw, 470px);
+      height: clamp(190px, 90vw, 250px);
+      animation: float 6s ease-in-out infinite;
     }
-
+    
     /* Positioning floating elements */
     .floating-element:nth-child(1) {
-        top: 20%;
-        left: 2%;
-        animation-delay: -1s;
+      top: 20%;
+      left: 2%;
+      animation-delay: -1s;
     }
-
+    
     .floating-element:nth-child(2) {
-        top: 10%;
-        right: 12%;
-        animation-delay: -3s;
+      top: 10%;
+      right: 12%;
+      animation-delay: -3s;
     }
-
+    
     .floating-element:nth-child(3) {
-        bottom: 15%;
-        left: 5%;
-        animation-delay: -2s;
+      bottom: 15%;
+      left: 5%;
+      animation-delay: -2s;
     }
-
+    
     .floating-element:nth-child(4) {
-        bottom: 5%;
-        right: 5%;
-        animation-delay: -4s;
+      bottom: 5%;
+      right: 5%;
+      animation-delay: -4s;
     }
-
+    
     .floating-element:nth-child(5) {
-        bottom: 32%;
-        right: 5%;
-        animation-delay: -4s;
+      bottom: 32%;
+      right: 5%;
+      animation-delay: -4s;
     }
-
-
+    
     /* Floating animation */
     @keyframes float {
-
-        0%,
-        100% {
-            transform: translateY(0px) rotate(0deg);
-        }
-
-        25% {
-            transform: translateY(-20px) rotate(5deg);
-        }
-
-        50% {
-            transform: translateY(-10px) rotate(-3deg);
-        }
-
-        75% {
-            transform: translateY(-15px) rotate(3deg);
-        }
+      0%,
+      100% {
+        transform: translateY(0px) rotate(0deg);
+      }
+    
+      25% {
+        transform: translateY(-20px) rotate(5deg);
+      }
+    
+      50% {
+        transform: translateY(-10px) rotate(-3deg);
+      }
+    
+      75% {
+        transform: translateY(-15px) rotate(3deg);
+      }
     }
-
+    
     /* Stats Section */
     .stats-section {
-        background: rgba(255, 255, 255, 0.15);
-        backdrop-filter: blur(15px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 24px;
-        padding: 32px;
-        margin-top: 60px;
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(15px, 1fr));
-        gap: 24px;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 24px;
+      padding: 32px;
+      margin-top: 60px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(15px, 1fr));
+      gap: 24px;
     }
-
+    
     .stat-item {
-        text-align: center;
-        color: white;
+      text-align: center;
+      color: white;
     }
-
+    
     .stat-number {
-        font-size: 28px;
-        font-weight: 800;
-        margin-bottom: 4px;
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 4px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
     }
-
+    
     .stat-label {
-        font-size: 14px;
-        opacity: 0.9;
-        font-weight: 500;
+      font-size: 14px;
+      opacity: 0.9;
+      font-weight: 500;
     }
-
+    
     /* Main Content Layout Changes */
     .main-content {
-        display: flex;
-        gap: 32px;
-        padding: 48px 0;
-        max-width: 1400px;
-        /* Increased from 1000px */
-        margin: 0 auto;
+      display: flex;
+      gap: 32px;
+      padding: 48px 0;
+      max-width: 1400px;
+      /* Increased from 1000px */
+      margin: 0 auto;
     }
-
+    
     .feed-container {
-        flex: 1;
-        max-width: none;
-        /* Removed 600px limit to allow stretching */
-        min-width: 0;
-        /* Ensures proper flex shrinking */
+      flex: 1;
+      max-width: none;
+      /* Removed 600px limit to allow stretching */
+      min-width: 0;
+      /* Ensures proper flex shrinking */
     }
-
+    
     /* Enhanced Confession Feed Styling */
     .feed-header {
-
-        padding-left: 250px;
-        margin-bottom: 24px;
-        box-shadow: 0 4px 20px rgba(107, 115, 255, 0.1);
-        position: relative;
-        overflow: hidden;
+      padding-left: 250px;
+      margin-bottom: 24px;
+      box-shadow: 0 4px 20px rgba(107, 115, 255, 0.1);
+      position: relative;
+      overflow: hidden;
     }
-
-
-
+    
     @keyframes shimmer {
-
-        0%,
-        100% {
-            transform: translateX(-100%) rotate(45deg);
-        }
-
-        50% {
-            transform: translateX(100%) rotate(45deg);
-        }
+      0%,
+      100% {
+        transform: translateX(-100%) rotate(45deg);
+      }
+    
+      50% {
+        transform: translateX(100%) rotate(45deg);
+      }
     }
-
+    
     .feed-header h2 {
-        font-size: 30px;
-        font-weight: 700;
-        margin-bottom: 6px;
-        padding-left: 48px;
-        color: var(--text-primary);
-        text-shadow: 0 1px 3px rgba(107, 115, 255, 0.2);
-
+      font-size: 30px;
+      font-weight: 700;
+      margin-bottom: 6px;
+      padding-left: 48px;
+      color: var(--text-primary);
+      text-shadow: 0 1px 3px rgba(107, 115, 255, 0.2);
     }
-
+    
     .feed-header p {
-        color: var(--text-secondary);
-        font-size: 19.2px;
-        font-weight: 500;
-
+      color: var(--text-secondary);
+      font-size: 19.2px;
+      font-weight: 500;
     }
-
+    
     /* Enhanced Confession Cards */
     .confession-card {
-        background: var(--card-bg);
-        border: 2px solid rgba(107, 115, 255, 0.1);
-        border-radius: 16px;
-        margin-bottom: 16px;
-        transition: all 0.3s ease;
-        box-shadow: 0 2px 12px rgba(107, 115, 255, 0.08);
-        position: relative;
-        overflow: hidden;
+      background: var(--card-bg);
+      border: 2px solid rgba(107, 115, 255, 0.1);
+      border-radius: 16px;
+      margin-bottom: 16px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 12px rgba(107, 115, 255, 0.08);
+      position: relative;
+      overflow: hidden;
     }
-
+    
     .confession-card::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 3px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
-        opacity: 0;
-        transition: opacity 0.3s ease;
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+      opacity: 0;
+      transition: opacity 0.3s ease;
     }
-
+    
     .confession-card:hover {
-        border-color: rgba(107, 115, 255, 0.3);
-        box-shadow: 0 8px 25px rgba(107, 115, 255, 0.15);
-        transform: translateY(-2px);
+      border-color: rgba(107, 115, 255, 0.3);
+      box-shadow: 0 8px 25px rgba(107, 115, 255, 0.15);
+      transform: translateY(-2px);
     }
-
+    
     .confession-card:hover::before {
-        opacity: 1;
+      opacity: 1;
     }
-
+    
     .confession-header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 16px 20px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 20px 12px;
     }
-
+    
     .user-avatar {
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 13px;
-        color: white;
-        font-weight: 600;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: white;
+      font-weight: 600;
     }
-
+    
     .username {
-        font-weight: 600;
-        font-size: 14px;
-        color: var(--primary-color);
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--primary-color);
     }
-
+    
     .time-ago {
-        color: var(--text-light);
-        font-size: 12px;
-        font-weight: 500;
+      color: var(--text-light);
+      font-size: 12px;
+      font-weight: 500;
     }
-
+    
     .confession-text {
-        padding: 0 20px 16px;
-        font-size: 15px;
-        line-height: 1.6;
-        color: var(--text-primary);
+      padding: 0 20px 16px;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--text-primary);
     }
-
+    
     .confession-actions {
-        display: flex;
-        align-items: center;
-        padding: 12px 8px;
-        border-top: 1px solid var(--border-light);
-        background: linear-gradient(135deg,
-                rgba(107, 115, 255, 0.02) 0%,
-                rgba(124, 58, 237, 0.02) 100%);
+      display: flex;
+      align-items: center;
+      padding: 12px 8px;
+      border-top: 1px solid var(--border-light);
+      background: linear-gradient(135deg, rgba(107, 115, 255, 0.02) 0%, rgba(124, 58, 237, 0.02) 100%);
     }
-
+    
     .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        background: none;
-        border: none;
-        color: var(--text-secondary);
-        cursor: pointer;
-        font-size: 13px;
-        font-weight: 500;
-        padding: 10px 16px;
-        border-radius: 8px;
-        transition: all 0.2s ease;
-        flex: 1;
-        justify-content: center;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 10px 16px;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+      flex: 1;
+      justify-content: center;
     }
-
+    
     .action-btn:hover {
-        background: rgba(107, 115, 255, 0.1);
-        color: var(--primary-color);
-        transform: scale(1.02);
+      background: rgba(107, 115, 255, 0.1);
+      color: var(--primary-color);
+      transform: scale(1.02);
     }
-
+    
     .action-btn.liked {
-        color: var(--accent-color);
-        background: rgba(6, 214, 160, 0.1);
+      color: var(--accent-color);
+      background: rgba(6, 214, 160, 0.1);
     }
-
+    
     .action-btn.liked:hover {
-        background: rgba(6, 214, 160, 0.15);
+      background: rgba(6, 214, 160, 0.15);
     }
-
+    
     /* Enhanced Login Prompt */
     .login-prompt {
-        background: linear-gradient(135deg,
-                rgba(107, 115, 255, 0.05) 0%,
-                rgba(124, 58, 237, 0.03) 100%);
-        border: 2px solid rgba(107, 115, 255, 0.2);
-        border-radius: 16px;
-        padding: 40px;
-        text-align: center;
-        margin-top: 32px;
-        position: relative;
-        overflow: hidden;
+      background: linear-gradient(135deg, rgba(107, 115, 255, 0.05) 0%, rgba(124, 58, 237, 0.03) 100%);
+      border: 2px solid rgba(107, 115, 255, 0.2);
+      border-radius: 16px;
+      padding: 40px;
+      text-align: center;
+      margin-top: 32px;
+      position: relative;
+      overflow: hidden;
     }
-
+    
     .login-prompt::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color), var(--accent-color));
     }
-
+    
     .login-prompt h3 {
-        font-size: 20px;
-        font-weight: 700;
-        margin-bottom: 10px;
-        color: var(--primary-color);
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      color: var(--primary-color);
     }
-
+    
     .login-prompt p {
-        color: var(--text-secondary);
-        margin-bottom: 24px;
-        font-weight: 500;
+      color: var(--text-secondary);
+      margin-bottom: 24px;
+      font-weight: 500;
     }
-
+    
     /* Enhanced Sidebar */
     .sidebar-widget {
-        background: var(--card-bg);
-        border: 2px solid var(--border-light);
-        border-radius: 16px;
-        padding: 20px;
-        margin-bottom: 20px;
-        box-shadow: 0 2px 12px rgba(107, 115, 255, 0.06);
-        transition: all 0.3s ease;
+      background: var(--card-bg);
+      border: 2px solid var(--border-light);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 12px rgba(107, 115, 255, 0.06);
+      transition: all 0.3s ease;
     }
-
+    
     .sidebar-widget:hover {
-        border-color: rgba(107, 115, 255, 0.3);
-        box-shadow: 0 4px 16px rgba(107, 115, 255, 0.1);
+      border-color: rgba(107, 115, 255, 0.3);
+      box-shadow: 0 4px 16px rgba(107, 115, 255, 0.1);
     }
-
+    
     .sidebar-widget h3 {
-        font-size: 17px;
-        font-weight: 700;
-        margin-bottom: 16px;
-        color: var(--primary-color);
-        position: relative;
+      font-size: 17px;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: var(--primary-color);
+      position: relative;
     }
-
+    
     .sidebar-widget h3::after {
-        content: "";
-        position: absolute;
-        bottom: -6px;
-        left: 0;
-        width: 30px;
-        height: 2px;
-        background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
-        border-radius: 1px;
+      content: '';
+      position: absolute;
+      bottom: -6px;
+      left: 0;
+      width: 30px;
+      height: 2px;
+      background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+      border-radius: 1px;
     }
-
+    
     .trending-topics a {
-        color: var(--text-secondary);
-        font-weight: 500;
-        text-decoration: none;
+      color: var(--text-secondary);
+      font-weight: 500;
+      text-decoration: none;
     }
-
+    
     .trending-topics a:hover {
-        color: var(--primary-color);
-        font-weight: 500;
-        text-decoration: none;
+      color: var(--primary-color);
+      font-weight: 500;
+      text-decoration: none;
     }
-
+    
     /* Responsive adjustments */
     @media (max-width: 1200px) {
-        .main-content {
-            max-width: 1200px;
-            gap: 24px;
-        }
-
-        .sidebar {
-            width: 260px;
-        }
+      .main-content {
+        max-width: 1200px;
+        gap: 24px;
+      }
+    
+      .sidebar {
+        width: 260px;
+      }
     }
-
+    
     @media (max-width: 768px) {
-        .main-content {
-            flex-direction: column;
-            padding: 16px 0;
-            gap: 16px;
-        }
-
-        .sidebar {
-            width: 100%;
-            position: static;
-            margin-left: 0;
-        }
-
-        .feed-header {
-            padding: 20px;
-        }
-
-        .confession-card {
-            margin-bottom: 12px;
-        }
-
-        .confession-header {
-            padding: 14px 16px 10px;
-        }
-
-        .confession-text {
-            padding: 0 16px 14px;
-        }
+      .main-content {
+        flex-direction: column;
+        padding: 16px 0;
+        gap: 16px;
+      }
+    
+      .sidebar {
+        width: 100%;
+        position: static;
+        margin-left: 0;
+      }
+    
+      .feed-header {
+        padding: 20px;
+      }
+    
+      .confession-card {
+        margin-bottom: 12px;
+      }
+    
+      .confession-header {
+        padding: 14px 16px 10px;
+      }
+    
+      .confession-text {
+        padding: 0 16px 14px;
+      }
     }
-
+    
     /* Footer */
     .footer {
-        background: black;
-        border-top: 1px solid var(--border-light);
-        padding: 32px 0;
-        margin-top: 48px;
-        color: white;
+      background: black;
+      border-top: 1px solid var(--border-light);
+      padding: 32px 0;
+      margin-top: 48px;
+      color: white;
     }
-
+    
     .footer-content {
-        text-align: center;
+      text-align: center;
     }
-
+    
     .footer-links {
-        display: flex;
-        gap: 24px;
-        justify-content: center;
-        margin-bottom: 16px;
-        flex-wrap: wrap;
+      display: flex;
+      gap: 24px;
+      justify-content: center;
+      margin-bottom: 16px;
+      flex-wrap: wrap;
     }
-
+    
     .footer-links a {
-        color: var(--text-secondary);
-        text-decoration: none;
-        font-size: 13px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 13px;
     }
-
+    
     .footer-links a:hover {
-        color: white;
+      color: white;
     }
-
+    
     .footer-bottom p {
-        color: var(--text-light);
-        font-size: 12px;
+      color: var(--text-light);
+      font-size: 12px;
     }
-
+    
     /* Responsive */
     @media (max-width: 768px) {
-        .hamburger {
-            display: flex;
-        }
-
-        .nav-links {
-            display: none;
-            position: absolute;
-            top: 56px;
-            left: 0;
-            right: 0;
-            background: var(--bg-primary);
-            border-bottom: 1px solid var(--border-light);
-            flex-direction: column;
-            height: auto;
-        }
-
-        .nav-links.active {
-            display: flex;
-        }
-
-        .nav-links li {
-            width: 100%;
-            height: auto;
-        }
-
-        .nav-links a {
-            padding: 16px;
-            border-bottom: 1px solid var(--border-light);
-            height: auto;
-        }
-
-        .main-content {
-            flex-direction: column;
-            padding: 16px 0;
-        }
-
-        .sidebar {
-            width: 100%;
-            position: static;
-        }
-
-        .nav-orbs {
-            display: none;
-        }
-
-        .hero {
-            padding: 80px 0 60px;
-        }
-
-        .stats-section {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            padding: 24px;
-        }
+      .hamburger {
+        display: flex;
+      }
+    
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 56px;
+        left: 0;
+        right: 0;
+        background: var(--bg-primary);
+        border-bottom: 1px solid var(--border-light);
+        flex-direction: column;
+        height: auto;
+      }
+    
+      .nav-links.active {
+        display: flex;
+      }
+    
+      .nav-links li {
+        width: 100%;
+        height: auto;
+      }
+    
+      .nav-links a {
+        padding: 16px;
+        border-bottom: 1px solid var(--border-light);
+        height: auto;
+      }
+    
+      .main-content {
+        flex-direction: column;
+        padding: 16px 0;
+      }
+    
+      .sidebar {
+        width: 100%;
+        position: static;
+      }
+    
+      .nav-orbs {
+        display: none;
+      }
+    
+      .hero {
+        padding: 80px 0 60px;
+      }
+    
+      .stats-section {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 16px;
+        padding: 24px;
+      }
     }
-</style>
-</head>
+    
+    Add css in home.html .comment-toggle-checkbox {
+      display: none;
+    }
+    
+    .comment-section {
+      /* The comment section is hidden by default */
+      display: none;
+      max-width: 95%;
+      margin: 16px auto;
+      padding: 16px;
+      background-color: var(--bg-tertiary);
+      border-radius: 12px;
+      border: 1px solid var(--border-light);
+    }
+    
+    .comment-toggle-checkbox:checked + .comment-section {
+      display: block;
+    }
+    
+    .confession-actions .action-btn {
+      cursor: pointer;
+    }
+    
+    .comment-section form {
+      margin-bottom: 12px;
+    }
+    
+    .comment-section textarea {
+      width: 100%;
+      padding: 10px;
+      font-size: 14px;
+      border: 1px solid var(--border-medium);
+      border-radius: 6px;
+      resize: vertical;
+      margin-bottom: 8px;
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+    
+    .comment-section button[type='submit'] {
+      background-color: var(--primary-color);
+      color: white;
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.2s ease;
+    }
+    
+    .comment-section button[type='submit']:hover {
+      background-color: var(--secondary-color);
+    }
+    
+    .comments .comment {
+      background-color: var(--bg-secondary);
+      padding: 8px 12px;
+      border-radius: 6px;
+      margin-bottom: 6px;
+      font-size: 14px;
+      border-left: 3px solid var(--primary-color);
+      color: var(--text-secondary);
+    }
+    
+    .no-comments {
+      font-size: 14px;
+      color: var(--text-light);
+      margin-top: 6px;
+    }
 
-<body>
-    <!-- Enhanced Hero Section -->
-    <section class="hero">
-        <!-- Floating decorative elements -->
-        <div class="floating-element"><img src="https://i.ibb.co/67vRkTdg/hi.png" class="floating-img1" alt="img1">
-        </div>
-        <div class="floating-element floating-emoji1">🤩</div>
-        <div class="floating-element floating-emoji2">😎</div>
-        <div class="floating-element floating-emoji3">😜</div>
-        <div class="floating-element"><img src="https://i.ibb.co/67vRkTdg/hi.png" class="floating-img2" alt="img4">
-        </div>
+    .confession-actions .action-btn {
+        text-decoration: none;
+    }
+    
+    .comment-toggle-checkbox {
+        display: none;
+    }
 
+  </style>
 
-        <div class="container">
-            <div class="hero-content">
-                <h1>Feel Safe.<br>Speak Freely.</h1>
-                <p>Your emotions matter. Share without judgment.&nbsp;&nbsp; Heal through connection.</p>
-                {% if user.is_authenticated %}
-                <a href="{% url 'create_confession' %}" class="cta-button">Begin Confessing</a>
-                {% else %}
-                <a href="{% url 'join' %}" class="cta-button">Begin Confessing</a>
-                {% endif %}
-
-
-                <div class="stats-section">
-                    <div class="stat-item">
-                        <div class="stat-number">50K+</div>
-                        <div class="stat-label">Confessions Shared</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">15K+</div>
-                        <div class="stat-label">Active Members</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">99%</div>
-                        <div class="stat-label">Anonymous & Safe</div>
-                    </div>
-                    <div class="stat-item">
-                        <div class="stat-number">24/7</div>
-                        <div class="stat-label">Support Available</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="main-content">
-            <!-- Confession Feed -->
-            <div class="feed-container" id="confessions">
-                <div class="feed-header">
-                    <h2>Recent Confessions</h2>
-                    <p>Anonymous thoughts from the community</p>
-                </div>
-
-                <!-- Confession Cards -->
-                {% for c in confessions %}
-                <div class="confession-card" id="confession-{{ c.id }}">
-
-                    <div class="confession-header">
-                        <div class="user-info">
-                            <div class="user-avatar">👤</div>
-                            <span class="username">Anonymous</span>
-                        </div>
-                        <span class="time-ago">{{ c.date_created|timesince }} ago</span>
-                    </div>
-                    <div class="confession-text">
-                        {{ c.confession }}
-                    </div>
-
-                    <div class="confession-actions">
-                        <form action="{% url 'toggle_heart' c.id %}" method="POST" style="flex: 1;">
-                            {% csrf_token %}
-                            <button class="action-btn" type="submit">
-                                {% if user in c.hearts.all %}
-                                <i class="fas fa-heart" style="color: #ef4444;"></i>
-                                {% else %}
-                                <i class="far fa-heart"></i>
-                                {% endif %}
-                                <span>{{ c.total_hearts }}</span>
-                            </button>
-                        </form>
-                        <button class="action-btn">
-                            <i class="far fa-comment"></i>
-                            <span>{{ c.comments.count }}</span>
-                        </button>
-                        <button class="action-btn">
-                            <i class="far fa-share-square"></i>
-                            <span>Share</span>
-                        </button>
-                    </div>
-
-                    <div class="comment-section">
-                        {% if user.is_authenticated %}
-                        <form action="{% url 'add_comment' c.id %}" method="POST" class="comment-form">
-                            {% csrf_token %}
-                            <input type="text" name="comment_body" placeholder="Add a comment..." required
-                                autocomplete="off">
-                            <button type="submit">Post</button>
-                        </form>
-                        {% endif %}
-
-                        <div class="comment-list">
-                            {% for comment in c.comments.all %}
-                            <div class="comment">
-                                <span class="comment-author">{{ comment.user.username }}:</span>
-                                <span class="comment-body">{{ comment.body }}</span>
-                            </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-
-                </div> {% endfor %} {% if not user.is_authenticated %}
-                <div class="login-prompt">
-                    <h3>Continue Reading</h3>
-                    <p>Join our supportive community to read more confessions, share your story, and connect with others
-                        on their healing journey.</p>
-                    <div class="prompt-buttons">
-                        <a href="{% url 'join' %}" class="cta-button">JOIN</a>
-                    </div>
-                </div>
-                {% endif %}
-            </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <div class="sidebar-widget">
-                    <h3>Community Guidelines</h3>
-                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">
-                        Share with kindness and respect. We're all here to support each other on our healing journey.
-                    </p>
-                </div>
-
-                <div class="sidebar-widget">
-                    <h3>Trending Confessions</h3>
-                    <ul class="trending-topics">
-                        <li><a href="#">I cheated during the exam...</a></li>
-                        <li><a href="#">My best friend doesn't know this...</a></li>
-                        <li><a href="#">I still stalk my ex...</a></li>
-                        <li><a href="#">I regret ghosting them...</a></li>
-                        <li><a href="#">Nobody knows this about me...</a></li>
-                    </ul>
-                </div>
-                <div class="sidebar-widget">
-                    <h3>Need Help?</h3>
-                    <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">
-                        If you're in crisis, please reach out to a mental health professional or crisis helpline.
-                    </p>
-                </div>
-            </div>
-        </div>
+  <!-- Enhanced Hero Section -->
+  <section class="hero">
+    <!-- Floating decorative elements -->
+    <div class="floating-element">
+      <img src="https://i.ibb.co/67vRkTdg/hi.png" class="floating-img1" alt="img1" />
+    </div>
+    <div class="floating-element floating-emoji1">🤩</div>
+    <div class="floating-element floating-emoji2">😎</div>
+    <div class="floating-element floating-emoji3">😜</div>
+    <div class="floating-element">
+      <img src="https://i.ibb.co/67vRkTdg/hi.png" class="floating-img2" alt="img4" />
     </div>
 
-    {% endblock %}
+    <div class="container">
+      <div class="hero-content">
+        <h1>Feel Safe.<br />Speak Freely.</h1>
+        <p>Your emotions matter. Share without judgment.&nbsp;&nbsp; Heal through connection.</p>
+        {% if user.is_authenticated %}
+          <a href="{% url 'create_confession' %}" class="cta-button">Begin Confessing</a>
+        {% else %}
+          <a href="{% url 'join' %}" class="cta-button">Begin Confessing</a>
+        {% endif %}
+
+        <div class="stats-section">
+          <div class="stat-item">
+            <div class="stat-number">50K+</div>
+            <div class="stat-label">Confessions Shared</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15K+</div>
+            <div class="stat-label">Active Members</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">99%</div>
+            <div class="stat-label">Anonymous & Safe</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">24/7</div>
+            <div class="stat-label">Support Available</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Content -->
+  <div class="container">
+    <div class="main-content">
+      <!-- Confession Feed -->
+      <div class="feed-container" id="confessions">
+        <div class="feed-header">
+          <h2>Recent Confessions</h2>
+          <p>Anonymous thoughts from the community</p>
+        </div>
+
+        <!-- Confession Cards -->
+        {% for c in confessions %}
+        <div class="confession-card">
+            <div class="confession-header">
+                <div class="user-info">
+                    <div class="user-avatar">👤</div>
+                        <span class="username">Anonymous</span>
+                </div>
+                    <span class="time-ago">{{ c.date_created }}</span>
+                </div>
+            <div class="confession-text">{{ c.confession }}</div>
+
+            <div class="confession-actions">
+                <a class="action-btn" href="{% url 'toggle_heart' c.id %}">
+                    {% if user in c.hearts.all %}
+                    <i class="fas fa-heart" style="color: red;"></i>
+                    {% else %}
+                    <i class="far fa-heart"></i>
+                    {% endif %}
+                    <span>{{ c.total_hearts }}</span>
+                </a>
+
+                <label for="comment-toggle-{{ c.id }}" class="action-btn">
+                    <i class="far fa-comment"></i>
+                    <span>{{ c.comments.count }}</span>
+                </label>
+                            
+                <a class="action-btn" href="{{ request.build_absolute_uri }}#confession-{{ confession.id }}">
+                    <i class="far fa-paper-plane"></i> Share
+                </a>
+            </div>
+
+            <input type="checkbox" id="comment-toggle-{{ c.id }}" class="comment-toggle-checkbox">
+
+                <div class="comment-section">
+                    <form method="post" action="{% url 'add_comment' c.id %}">
+                        {% csrf_token %}
+                        <textarea name="content" placeholder="Write a comment..." required></textarea>
+                        <button type="submit">Post Comment</button>
+                    </form>
+
+                    <div class="comments">
+                        {% for comment in c.comments.all %}
+                            <div class="comment">
+                                <strong>Anonymous:</strong> {{ comment.content }}
+                            </div>
+                            {% empty %}
+                                <p class="no-comments">No comments yet.</p>
+                            {% endfor %}
+                    </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- Login Prompt (show after 7 confessions) -->
+        {% if user.is_authenticated %}
+
+        {% else %}
+          <div class="login-prompt">
+            <h3>Continue Reading</h3>
+            <p>Join our supportive community to read more confessions, share your story, and connect with others on their healing journey.</p>
+            <div class="prompt-buttons">
+              <a href="{% url 'join' %}" class="cta-button">JOIN</a>
+            </div>
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="sidebar-widget">
+          <h3>Community Guidelines</h3>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5;">Share with kindness and respect. We're all here to support each other on our healing journey.</p>
+        </div>
+
+        <div class="sidebar-widget">
+          <h3>Trending Confessions</h3>
+          <ul class="trending-topics">
+            <li>
+              <a href="#">I cheated during the exam...</a>
+            </li>
+            <li>
+              <a href="#">My best friend doesn't know this...</a>
+            </li>
+            <li>
+              <a href="#">I still stalk my ex...</a>
+            </li>
+            <li>
+              <a href="#">I regret ghosting them...</a>
+            </li>
+            <li>
+              <a href="#">Nobody knows this about me...</a>
+            </li>
+          </ul>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Need Help?</h3>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 12px;">If you're in crisis, please reach out to a mental health professional or crisis helpline.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

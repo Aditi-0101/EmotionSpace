@@ -23,6 +23,8 @@ def generate_response(entry_text):
         "2. A 'joy' key with a percentage (0-100) of joy detected. "
         "3. A 'sadness' key with a percentage (0-100) of sadness detected. "
         "4. A 'neutral' key with a percentage (0-100) of neutral emotion detected. "
+        "5. 'user_preferences': list of keywords or activities the user might enjoy or find comforting, inferred from the journal (e.g., 'listening to music', 'painting', 'going for a walk')\n"
+        "6. 'personal_suggestion': if sadness is dominant, give a comforting suggestion using one or more of the detected preferences. Else return an empty string.\n"
         "Ensure the percentages add up to 100. Do not include any text outside of the JSON object. "
         "\n\nJournal Entry:\n\"" + entry_text + "\""
     )
@@ -74,6 +76,8 @@ def create_journal(request):
             joy = float(ai_data.get("joy", 0)) if ai_data else None
             sad = float(ai_data.get("sadness", 0)) if ai_data else None
             neutral = float(ai_data.get("neutral", 0)) if ai_data else None
+            preferences = ai_data.get("user_preferences", [])
+            suggestion = ai_data.get("personal_suggestion", "")
 
             journal = Journal.objects.create(
                 user=request.user,
@@ -106,9 +110,32 @@ def journal_analysis(request, id):
         return redirect("create_journal")
 
     ai_insight = journal.ai_insight if journal.ai_insight else {}
+    suggestion = ai_insight.get("personal_suggestion", "")
+    preferences = ai_insight.get("user_preferences", [])
+    insight = ai_insight.get("insight", "")
+
+    emotions = {
+        'joy': ai_insight.get("joy", 0),
+        'sadness': ai_insight.get("sadness", 0),
+        'neutral': ai_insight.get("neutral", 0),
+    }
+
+    dominant_emotion = max(emotions, key=emotions.get)
+
+    emotion_icon_map = {
+        'joy': '😊',
+        'sadness': '😢',
+        'neutral': '😐'
+    }
+
+    mood_icon = emotion_icon_map.get(dominant_emotion, '😐')
 
     parameters = {
         "ai_insight": ai_insight,
+        "suggestion": suggestion,
+        "preferences": preferences,
+        "insight": insight,
+        "mood_icon": mood_icon,
     }
     return render(request, "journal/journal_analysis.html", parameters)
 

@@ -34,31 +34,12 @@ def toggle_heart(request, confession_id):
 
 @login_required
 def add_comment(request, confession_id):
-    confession = Confession.objects.get(id=confession_id)
-    
-    
     if request.method == 'POST':
-        # Get the text from the form's input field
-        comment_body = request.POST.get('comment_body')
-        
-        # Make sure the comment isn't empty
-        if comment_body:
-            # Create and save the new Comment in the database
-            Comment.objects.create(
-                confession=confession,
-                user=request.user,
-                body=comment_body
-            )
-            
-            # Also create an Activity record for the feed
-            Activity.objects.create(
-                user=request.user,
-                activity_type='comment',
-                description='Commented on a confession'
-            )
-
-    # Redirect the user back to the home page, scrolling to the post they commented on
-    return redirect(f"{reverse('home')}#confession-{confession_id}")
+        confession = Confession.objects.get(id=confession_id)
+        content = request.POST.get('content')
+        if content:
+            Comment.objects.create(confession=confession, user=request.user, content=content)
+    return redirect('home')
 
 def about(request):
     return render(request, "home/about.html")

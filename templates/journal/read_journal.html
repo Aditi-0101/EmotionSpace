@@ -402,81 +402,6 @@
       }
     }
     
-    .section-header {
-      background: linear-gradient(135deg, rgba(107, 115, 255, 0.05) 0%, rgba(124, 58, 237, 0.03) 100%);
-      border-bottom: 1px solid #eee;
-      padding: 20px 24px;
-    }
-    
-    .section-title {
-      font-size: 18px;
-      font-weight: 700;
-      color: #333;
-    }
-    
-    .mood-analysis-breakdown {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    
-    .mood-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-    
-    .mood-item .mood-label {
-      width: 100px;
-      font-weight: 500;
-      color: #555;
-    }
-    
-    .mood-progress-bar {
-      flex-grow: 1;
-      height: 24px;
-      background-color: #f0f0f0;
-      border-radius: 6px;
-      overflow: hidden;
-    }
-    
-    .mood-progress-fill {
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 8px;
-      color: white;
-      font-size: 12px;
-      font-weight: 600;
-      border-radius: 6px;
-      transition: width 0.5s ease-in-out;
-    }
-    
-    .mood-joy {
-      background: linear-gradient(90deg, #facc15, #fb923c);
-    }
-    
-    .mood-sadness {
-      background: linear-gradient(90deg, #60a5fa, #3b82f6);
-    }
-    
-    .mood-neutral {
-      background: linear-gradient(90deg, #a3a3a3, #737373);
-    }
-    
-    .ai-insight {
-      background: #f8f7ff;
-      border-left: 4px solid #7c3aed;
-      padding: 16px;
-      border-radius: 8px;
-      margin-top: 16px;
-      color: #333;
-      font-size: 15px;
-      white-space: pre-wrap;
-      line-height: 1.6;
-    }
   </style>
 
   <div class="bg-elements">
@@ -515,13 +440,17 @@
         {% if selected_entry %}
           <div class="paper-content">
             <div class="entry-date-display">{{ selected_entry.created_at|date:'F j, Y' }}</div>
-            {% if confession.is_edited %}
+            {% if selected_entry.is_edited %}
               <span style="color: gray; font-size: 0.8rem;">(edited)</span>
             {% endif %}
             <div class="entry-topic-display">{{ selected_entry.topic }}</div>
             <div class="entry-content-display">{{ selected_entry.entry }}</div>
             <div class="paper-actions">
+              {% if selected_entry.ai_insight %}
               <a class="action-button analysis-button" href="{% url 'journal_analysis' selected_entry.id %}">🧠 Analysis</a>
+              {% else %}
+              <a class="action-button analysis-button" href="{% url 'journal_analysis' selected_entry.id %}">🧠 Analysis</a>
+              {% endif %}
               <a class="action-button edit-button" href="{% url 'edit_journal' selected_entry.id %}">✏️ Edit</a>
               <a class="action-button delete-button" href="{% url 'delete_journal' selected_entry.id %}">🗑️ Delete</a>
             </div>
@@ -534,77 +463,5 @@
   </div>
 
   <a class="new-entry-btn" href="{% url 'create_journal' %}">➕</a>
-
-  {% if ai_insight %}
-    <div id="ai-modal-overlay" class="modal-overlay">
-      <div class="modal-content">
-        <button id="close-modal-btn" class="close-btn" title="Close">&times;</button>
-
-        <div class="section-header">
-          <h3 class="section-title">🧠 AI Journal Analysis</h3>
-        </div>
-
-        <div style="padding: 24px;">
-          <p style="margin-bottom: 20px; color: #555;">Here's the emotional tone detected in your entry:</p>
-
-          <div class="mood-analysis-breakdown">
-            <div class="mood-item">
-              <span class="mood-label">😊 Joy</span>
-              <div class="mood-progress-bar">
-                <div class="mood-progress-fill mood-joy" style="width: {{ ai_insight.joy }}%;">{{ ai_insight.joy }}%</div>
-              </div>
-            </div>
-            <div class="mood-item">
-              <span class="mood-label">😢 Sadness</span>
-              <div class="mood-progress-bar">
-                <div class="mood-progress-fill mood-sadness" style="width: {{ ai_insight.sadness }}%;">{{ ai_insight.sadness }}%</div>
-              </div>
-            </div>
-            <div class="mood-item">
-              <span class="mood-label">😐 Neutral</span>
-              <div class="mood-progress-bar">
-                <div class="mood-progress-fill mood-neutral" style="width: {{ ai_insight.neutral }}%;">{{ ai_insight.neutral }}%</div>
-              </div>
-            </div>
-          </div>
-
-          <div class="ai-insight">
-            <strong>✨ AI Insight:</strong><br />{{ ai_insight.insight|linebreaksbr }}
-          </div>
-        </div>
-      </div>
-    </div>
-  {% endif %}
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      const modalOverlay = document.getElementById('ai-modal-overlay')
-    
-      // Check if the modal exists on the page
-      if (modalOverlay) {
-        const closeModalBtn = document.getElementById('close-modal-btn')
-    
-        // Function to close the modal
-        function closeModal() {
-          modalOverlay.style.display = 'none'
-        }
-    
-        // Close modal when the close button is clicked
-        closeModalBtn.addEventListener('click', closeModal)
-    
-        // Close modal when clicking on the overlay background
-        modalOverlay.addEventListener('click', function (event) {
-          if (event.target === modalOverlay) {
-            closeModal()
-          }
-        })
-    
-        // Close modal with the Escape key
-        document.addEventListener('keydown', function (event) {
-          if (event.key === 'Escape') {
-            closeModal()
-          }
-        })
-      }
-    })
-  </script>
+  
 {% endblock %}

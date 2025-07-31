@@ -30,10 +30,25 @@
         box-sizing: border-box;
     }
 
+    .dashboard-main {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+    }
+
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 16px;
+    }
+
+    .dashboard-content {
+        padding: 48px 0;
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 32px;
+        max-width: 1400px;
+        margin: 0 auto;
     }
 
     /* Side Navigation Orbs */
@@ -246,9 +261,20 @@
         {% endif %}
     </nav>
 
-    <div class="section-card">
+    <!-- Main Dashboard Content -->
+    <div class="container">
+        <div class="dashboard-content">
+            <!-- Main Content Area -->
+            <div class="dashboard-main">
+                <div class="section-card">
         <div class="section-header">
             <h3 class="section-title">🧠 AI Journal Analysis</h3>
+        </div>
+        <div class="mood-overview" style="padding: 16px;">
+            <p style="font-size: 18px;">
+                Detected Mood: <strong>{{ dominant_emotion|title }}</strong> 
+            <span style="font-size: 24px;">{{ mood_icon }}</span>
+            </p>
         </div>
         <div class="section-content" style="padding: 24px;">
                         
@@ -294,6 +320,7 @@
                     </div>
                 </div>
                 
+                {% if suggestions %}
                 <div class="section-card">
                     <div class="section-header">
                         <h3 class="section-title">✨ Personalized Suggestions</h3>
@@ -304,32 +331,37 @@
                         </p>
 
                         <div class="suggestion-list">
+                            {% for tip in suggestions %}
                             <div class="suggestion-item">
-                                <div class="suggestion-icon">📝</div>
+                                <div class="suggestion-icon">💡</div>
                                 <div class="suggestion-text">
-                                    <h4>Write It Out</h4>
-                                    <p>Try focusing on one positive experience from your day, no matter how small.</p>
+                                    <h4>Try This</h4>
+                                    <p>{{ tip }}</p>
                                 </div>
                             </div>
+                            {% endfor %}
+                            {% if preferences %}
                             <div class="suggestion-item">
-                                <div class="suggestion-icon">🚶‍♂️</div>
+                                <div class="suggestion-icon">🎯</div>
                                 <div class="suggestion-text">
-                                    <h4>A Short Walk</h4>
-                                    <p>Just 10 minutes of walking outdoors can improve your mood and clear your head.
-                                    </p>
+                                    <h4>Your Comfort Zone</h4>
+                                    <p>You seem to enjoy: <strong>
+                                        {% if preferences|length > 1 %}
+                                        {{ preferences|join:", " }}
+                                        {% else %}
+                                        {{ preferences }}
+                                        {% endif %}
+                                    </strong></p>
                                 </div>
                             </div>
-                            <div class="suggestion-item">
-                                <div class="suggestion-icon">🎵</div>
-                                <div class="suggestion-text">
-                                    <h4>Listen to Music</h4>
-                                    <p>Put on a favorite playlist that you associate with good memories.</p>
-                                </div>
-                            </div>
+                            {% endif %}
                         </div>
                     </div>
                 </div>
-            
+                {% endif %}
+            </div>
+        </div>
+    </div>
 
 
   
