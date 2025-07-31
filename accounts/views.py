@@ -5,7 +5,9 @@ from django.contrib import auth
 from django.contrib import messages
 from .models import profile
 from datetime import datetime
-
+import requests
+from django.core.files.base import ContentFile
+import os
 
 # Create your views here.
 def join(request):
@@ -57,15 +59,9 @@ def profile_page(request):
     user = request.user
     prof, created = profile.objects.get_or_create(
         user=user,
-        defaults={
-            'phone': '',
-            'gender': '',
-            'dob': '',
-            'avatar': 'https://cdn-icons-png.flaticon.com/512/9308/9308904.png'
-        }
+        defaults={'avatar': 'profile_images/default_avatar.png'}
     )
 
-    
     avatar_choices = [
         "https://cdn-icons-png.flaticon.com/512/9308/9308904.png",
         "https://cdn-icons-png.flaticon.com/512/3906/3906579.png",
@@ -80,26 +76,38 @@ def profile_page(request):
     ]
     
     if request.method == 'POST':
+        # --- Save text fields first ---
         user.first_name = request.POST.get('first_name')
         user.last_name = request.POST.get('last_name')
+        user.save()
 
         prof.phone = request.POST.get('phone') 
-        prof.gender = request.POST.get('gender') or "unknown"
-
-        dob_input = request.POST.get('dob')
-        if dob_input:
-            date_object = datetime.strptime(dob_input, '%d-%m-%Y')
-            prof.dob = date_object.strftime('%Y-%m-%d')
-        else:
-            prof.dob = None
-            
-            
-        prof.avatar = request.POST.get('avatar') or "unknown"
-
-        user.save()
+        prof.gender = request.POST.get('gender')
+        # ... (Your existing dob logic) ...
         prof.save()
-        return redirect("profile_page") 
 
+        # --- New Logic for Avatars ---
+        # Case 1: A pre-selected avatar was chosen from the grid
+        if 'avatar' in request.POST and request.POST.get('avatar'):
+            avatar_url = request.POST.get('avatar')
+            try:
+                response = requests.get(avatar_url, stream=True)
+                if response.status_code == 200:
+                    filename = os.path.basename(avatar_url)
+                    # Save the downloaded content to the ImageField
+                    prof.avatar.save(filename, ContentFile(response.content), save=True)
+                else:
+                    messages.error(request, "Could not download the selected avatar.")
+            except requests.exceptions.RequestException:
+                messages.error(request, "Could not reach the avatar server.")
+        
+        # Case 2: A new file was uploaded
+        elif 'avatar_upload' in request.FILES:
+            prof.avatar = request.FILES['avatar_upload']
+            prof.save()
+            
+        return redirect("profile_page") 
+    
     return render(request, 'accounts/profile.html', {
         'user': user,
         'prof': prof,

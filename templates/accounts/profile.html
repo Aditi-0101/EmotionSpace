@@ -186,31 +186,38 @@
     </style>
 <body>
     <div class="profile-conta">
-        <form method="POST" class="profile-wrapper">
-            {% csrf_token %}
-
-            <div class="avatar-section">
-                <img src="{{ prof.avatar|default:'https://cdn-icons-png.flaticon.com/512/9308/9308904.png' }}" alt="Current Avatar" class="current-avatar">
-                
-                <div class="user-info">
-                    <h2 class="username">{{ user.username }}</h2>
-                    <h5 class="username">{{ user.email }}</h5>
-                    <p class="user-status">EmotionSpace Member</p>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="profile-wrapper">
+                {% csrf_token %}
+                <div class="avatar-section">
+                    {% if prof.avatar and prof.avatar.url %}
+                    <img src="{{ prof.avatar.url }}" alt="Current Avatar" class="current-avatar">
+                    {% else %}
+                    <img src="https://cdn-icons-png.flaticon.com/512/9308/9308904.png" alt="Default Avatar" class="current-avatar">
+                    {% endif %}
+                    <div class="user-info">
+                        <h2 class="username">{{ user.username }}</h2>
+                        <h5 class="username">{{ user.email }}</h5>
+                        <p class="user-status">EmotionSpace Member</p>
+                    </div>
+                    <div class="avatar-label">Choose Avatar</div>
+                    <div class="avatar-grid">
+                        {% for avatar_url in avatar_choices %}
+                        <label>
+                            <input type="radio" 
+                            name="avatar" 
+                            value="{{ avatar_url }}" 
+                            {% if avatar_url == prof.avatar %}checked{% endif %}>
+                            <img src="{{ avatar_url }}" alt="Avatar Option" class="avatar-option">
+                        </label>
+                        {% endfor %}
+                    </div>
+                    <div style="margin-top: 20px;">
+                        <label class="avatar-label">Or Upload Your Own</label>
+                        <input type="file" name="avatar_upload" class="form-input" accept="image/*">
+                    </div>
                 </div>
-                
-                <div class="avatar-label">Choose Avatar</div>
-                <div class="avatar-grid">
-                    {% for avatar_url in avatar_choices %}
-                    <label>
-                        <input type="radio" 
-                               name="avatar" 
-                               value="{{ avatar_url }}" 
-                               {% if avatar_url == prof.avatar %}checked{% endif %}>
-                        <img src="{{ avatar_url }}" alt="Avatar Option" class="avatar-option">
-                    </label>
-                    {% endfor %}
-                </div>
-            </div>
+            
 
             <div class="details-section">
                 <div class="section-header">
@@ -270,6 +277,7 @@
                         </button>
                     </div>
                 </div>
+            </div>
             </div>
         </form>
     </div>

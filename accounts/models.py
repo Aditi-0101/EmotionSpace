@@ -11,7 +11,7 @@ class profile(models.Model):
         ('Other','Other')
     ])
     dob = models.DateField(null=True, blank=True)
-    avatar = models.CharField(max_length=200,default="https://cdn-icons-png.flaticon.com/512/9308/9308904.png")
+    avatar = models.ImageField(upload_to='profile_images/', null=True, blank=True)
     
     def _str_(self):
         return self.user.username

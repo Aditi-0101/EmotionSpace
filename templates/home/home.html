@@ -794,10 +794,6 @@
                     <i class="far fa-comment"></i>
                     <span>{{ c.comments.count }}</span>
                 </label>
-                            
-                <a class="action-btn" href="{{ request.build_absolute_uri }}#confession-{{ confession.id }}">
-                    <i class="far fa-paper-plane"></i> Share
-                </a>
             </div>
 
             <input type="checkbox" id="comment-toggle-{{ c.id }}" class="comment-toggle-checkbox">

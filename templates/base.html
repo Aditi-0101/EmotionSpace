@@ -1094,13 +1094,13 @@
                             <div class="profile-container">
                                 <input type="checkbox" id="profile-toggle" class="profile-toggle">
                                 <label for="profile-toggle" class="profile-link">
-                                    <img src="{{ prof.avatar }}" alt="Profile" class="avatar-icon">
+                                    <img src="{{ prof.avatar.url }}" alt="Profile" class="avatar-icon">    
                                 </label>
                                 <div class="profile-menu">
                                     <div class="profile-header">
                                         <div class="avatar-container">
                                             <!-- Replace this src with your default avatar path -->
-                                            <img src="{{ prof.avatar }}" alt="User Avatar" class="avatar">
+                                            <img src="{{ prof.avatar.url }}" alt="User Avatar" class="avatar">
                                         </div>
                                         <h3 class="user-name">{{ user.username }}</h3>
                                         <p class="user-title">EmotionSpace Member</p>
@@ -1190,29 +1190,6 @@
             </div>
         </footer>
     </div>
-    <script>
-        function updateAvatar() {
-            // Get avatar from profile page and store in localStorage
-            const profileImg = document.querySelector('.current-avatar');
-            if (profileImg) {
-                localStorage.setItem('userAvatar', profileImg.src);
-            }
-            
-            // Update avatar on other pages
-            const avatarImg = document.querySelector('.avatar-icon');
-            const avata = document.querySelector('.avatar');
-            const storedAvatar = localStorage.getItem('userAvatar');
-            if (avatarImg && storedAvatar) {
-                avatarImg.src = storedAvatar;
-            }
-            if (avata && storedAvatar) {
-                avata.src = storedAvatar;
-            }
-        }
-
-        // Run when page loads
-        document.addEventListener('DOMContentLoaded', updateAvatar);
-    </script>
 </body>
 
 </html>
