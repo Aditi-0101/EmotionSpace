@@ -3,6 +3,8 @@ from django.contrib.auth.decorators import login_required
 import requests
 # Create your views here.
 
+
+
 @login_required
 def ask_ai(request):
     if request.method == "POST":
@@ -25,6 +27,7 @@ def generate_response(query):
     "If someone simply greets you (e.g., says 'hi', 'hey', or 'hello'), respond casually with warmth and friendliness. "
     "If someone shares personal emotions or thoughts, respond with empathy, comfort, and gentle reflection. "
     "You are not a therapist and do not give medical advice. Always speak like a trusted friend who is here to listen and care. "
+    "And dont just jump on consoling the user become their friend first tallk normally."
     "Respond appropriately to the message below:" + query
     )
 

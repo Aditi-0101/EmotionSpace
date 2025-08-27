@@ -9,7 +9,7 @@ from django.urls import reverse
 # Create your views here.
 
 
-api_key="AIzaSyBSE3-kehpQQkPge64skKx8HB2AJI4EgF0"
+
 
 def generate_response(entry_text):
     
