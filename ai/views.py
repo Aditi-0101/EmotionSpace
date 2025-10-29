@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 import requests
 # Create your views here.
 
-
+api_key = ""
 
 @login_required
 def ask_ai(request):

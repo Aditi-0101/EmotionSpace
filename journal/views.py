@@ -8,8 +8,7 @@ import json
 from django.urls import reverse
 # Create your views here.
 
-
-
+api_key=""
 
 def generate_response(entry_text):
     
