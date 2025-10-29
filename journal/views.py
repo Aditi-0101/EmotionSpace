@@ -6,9 +6,11 @@ from django.utils import timezone
 import requests
 import json
 from django.urls import reverse
+from django.conf import settings
+import google.generativeai as genai
 # Create your views here.
 
-api_key=""
+api_key = settings.GEMINI_API_KEY
 
 def generate_response(entry_text):
     
@@ -75,8 +77,8 @@ def create_journal(request):
             joy = float(ai_data.get("joy", 0)) if ai_data else None
             sad = float(ai_data.get("sadness", 0)) if ai_data else None
             neutral = float(ai_data.get("neutral", 0)) if ai_data else None
-            preferences = ai_data.get("user_preferences", [])
-            suggestion = ai_data.get("personal_suggestion", "")
+            # preferences = ai_data.get("user_preferences", [])
+            # suggestion = ai_data.get("personal_suggestion", "")
 
             journal = Journal.objects.create(
                 user=request.user,
@@ -135,6 +137,10 @@ def journal_analysis(request, id):
         "preferences": preferences,
         "insight": insight,
         "mood_icon": mood_icon,
+        "joy": emotions['joy'],
+        "sadness": emotions['sadness'],
+        "neutral": emotions['neutral'],
+        "dominant_emotion": dominant_emotion,
     }
     return render(request, "journal/journal_analysis.html", parameters)
 

@@ -1,9 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 import requests
+from django.conf import settings
+import google.generativeai as genai
 # Create your views here.
 
-api_key = ""
+api_key = settings.GEMINI_API_KEY
 
 @login_required
 def ask_ai(request):
